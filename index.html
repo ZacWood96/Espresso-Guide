@@ -3,341 +3,342 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Holiday Espresso Guide — Breville Barista Pro</title>
-  <!-- Tailwind CSS -->
+  <title>Holiday Espresso Companion — Breville Barista Pro Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Inter & Fraunces for cozy coffeehouse warmth -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
           colors: {
             cream: '#FBF7F2',
             creamDark: '#F2EAE0',
+            card: '#FFFDFB',
             espresso: '#2C1E16',
-            espressoLight: '#5C473C',
+            espressoLight: '#5C4334',
             copper: '#C86D51',
-            copperDark: '#A8543B',
+            copperDark: '#A9543B',
             sage: '#6B8E78',
             sageDark: '#52705D',
-            gold: '#D49A42'
           },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-            serif: ['Fraunces', 'Georgia', 'serif']
-          },
-          boxShadow: {
-            'card': '0 10px 30px -5px rgba(44, 30, 22, 0.08), 0 4px 10px -2px rgba(44, 30, 22, 0.04)',
-            'pill': '0 4px 12px rgba(44, 30, 22, 0.06)'
-          }
-        }
-      }
-    }
+        },
+      },
+    };
   </script>
   <style>
     * {
       -webkit-tap-highlight-color: transparent;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      background-color: #FBF7F2;
-      color: #2C1E16;
-      overflow-x: hidden;
       user-select: none;
     }
+    input, textarea, select {
+      user-select: text;
+    }
+    body {
+      background-color: #FBF7F2;
+      color: #2C1E16;
+      overflow: hidden;
+    }
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .step-animate {
+      animation: fadeSlideIn 0.24s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
 
-    /* Subtle slide & fade transitions for steps */
-    @keyframes stepEnterNext {
-      from { opacity: 0; transform: translateX(18px) scale(0.99); }
-      to   { opacity: 1; transform: translateX(0) scale(1); }
+    /* Rotary Drum Dial Wheel Styling */
+    .dial-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #EFE5D8 0%, #FFFDFB 24%, #FFFDFB 76%, #EFE5D8 100%);
+      border: 1.5px solid rgba(44, 30, 22, 0.16);
+      border-radius: 0.9rem;
+      height: 112px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 6px rgba(44, 30, 22, 0.08), 0 1px 2px rgba(255, 255, 255, 0.8);
     }
-    @keyframes stepEnterPrev {
-      from { opacity: 0; transform: translateX(-18px) scale(0.99); }
-      to   { opacity: 1; transform: translateX(0) scale(1); }
+    .dial-knurl {
+      width: 14px;
+      height: 100%;
+      flex-shrink: 0;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(44, 30, 22, 0.14) 0px,
+        rgba(44, 30, 22, 0.14) 2px,
+        transparent 2px,
+        transparent 5px
+      );
+      opacity: 0.65;
     }
-    .anim-next {
-      animation: stepEnterNext 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    .dial-drum {
+      flex: 1;
+      height: 100%;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      position: relative;
+      z-index: 2;
+      touch-action: pan-y;
     }
-    .anim-prev {
-      animation: stepEnterPrev 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    .dial-item {
+      height: 36px;
+      scroll-snap-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-variant-numeric: tabular-nums;
+      transition: transform 0.12s ease, color 0.12s ease, opacity 0.12s ease;
+      cursor: grab;
     }
-
-    /* Gentle floating motion on SVG illustrations */
-    @keyframes gentleFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-3px); }
+    .dial-item:active {
+      cursor: grabbing;
     }
-    .svg-float {
-      animation: gentleFloat 4s ease-in-out infinite;
-    }
-
-    /* Custom scrollbar for modal/diagnosis on compact screens */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #F2EAE0;
-      border-radius: 999px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #C8B6A6;
-      border-radius: 999px;
+    .dial-center-band {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      top: 50%;
+      height: 36px;
+      transform: translateY(-50%);
+      border-top: 1.5px solid rgba(200, 109, 81, 0.45);
+      border-bottom: 1.5px solid rgba(200, 109, 81, 0.45);
+      background: rgba(200, 109, 81, 0.08);
+      border-radius: 6px;
+      pointer-events: none;
+      z-index: 1;
     }
   </style>
 </head>
-<body class="bg-cream text-espresso font-sans flex flex-col min-h-screen">
+<body class="h-screen w-screen flex flex-col justify-between font-sans antialiased selection:bg-copper selection:text-white">
 
-  <!-- Portrait Orientation Gentle Suggestion Banner (only shown on narrow portrait phones) -->
-  <div id="portrait-banner" class="hidden sm:hidden portrait:flex items-center justify-between gap-2 bg-espresso text-cream px-3 py-1.5 text-xs z-40 shrink-0">
+  <!-- Portrait Orientation Hint Banner (Dismissible, shows only in portrait on narrow screens) -->
+  <div id="portrait-banner" class="hidden portrait:flex sm:hidden items-center justify-between gap-2 bg-espresso text-cream text-xs px-3 py-2 z-40 shrink-0">
     <div class="flex items-center gap-2">
-      <!-- Rotate phone icon -->
       <svg class="w-4 h-4 text-copper shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="4" y="2" width="10" height="16" rx="2" transform="rotate(-15 9 10)"/>
-        <path d="M16 14a5 5 0 0 0 4-4v-1"/>
-        <polyline points="17 9 20 6 22 9"/>
+        <rect x="4" y="2" width="16" height="20" rx="2" ry="2" transform="rotate(90 12 12)"/>
+        <path d="M12 18h.01"/>
       </svg>
-      <span>Tip: Rotate your phone to <strong>landscape</strong> for the best coffee-bar view!</span>
+      <span>Rotate phone to <strong>landscape</strong> for the best tabletop view.</span>
     </div>
-    <button id="dismiss-portrait-btn" class="text-cream/70 hover:text-cream px-1.5 py-0.5 rounded text-xs font-medium">Dismiss</button>
+    <button id="dismiss-portrait-btn" type="button" class="px-2 py-0.5 rounded bg-espressoLight text-cream font-medium text-[11px] hover:bg-copper transition">
+      Got it
+    </button>
   </div>
 
-  <!-- Top Header Bar: Back Arrow (Left), Recipe Pill & Settings Gear (Right) -->
-  <header class="w-full px-4 sm:px-6 pt-3 pb-1 flex items-center justify-between z-30 shrink-0">
-    <!-- Top-Left Back Arrow -->
+  <!-- Top Navigation Header -->
+  <header id="top-bar" class="w-full px-4 sm:px-8 pt-3 pb-1 flex items-center justify-between shrink-0 z-30">
+    <!-- Upper-Left Back Arrow -->
     <button
       id="back-btn"
       type="button"
       aria-label="Previous step"
-      class="group flex items-center gap-1.5 px-3 py-2 rounded-full bg-creamDark/80 hover:bg-creamDark border border-espresso/10 text-espresso transition-all active:scale-95 disabled:opacity-0 disabled:pointer-events-none shadow-sm"
+      class="group flex items-center gap-1.5 px-3 py-2 rounded-xl bg-card border border-espresso/10 shadow-sm text-espresso hover:bg-creamDark active:scale-95 transition-all disabled:opacity-30 disabled:pointer-events-none"
     >
-      <svg class="w-4 h-4 transition-transform group-hover:-translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 12H5"/>
+      <svg class="w-4 h-4 text-espresso group-hover:-translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"/>
         <polyline points="12 19 5 12 12 5"/>
       </svg>
-      <span class="text-xs font-semibold tracking-wide hidden sm:inline">Back</span>
+      <span class="text-xs sm:text-sm font-semibold">Back</span>
     </button>
 
-    <!-- Center Subtle Recipe Summary Badge -->
-    <div id="recipe-badge" class="flex items-center gap-2 sm:gap-3 px-3.5 py-1.5 rounded-full bg-white/80 border border-espresso/10 shadow-sm text-xs font-medium text-espressoLight">
-      <span class="inline-flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-copper"></span>
-        <strong id="badge-in" class="text-espresso">18g</strong> in
+    <!-- Center Active Recipe Pill & Step Counter -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <span id="header-recipe-pill" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-creamDark/90 border border-espresso/10 text-[11px] sm:text-xs font-medium text-espressoLight">
+        <span class="w-1.5 h-1.5 rounded-full bg-copper"></span>
+        <span id="recipe-summary-text">18g in → 40g out · 25–30s · Grind 11</span>
       </span>
-      <span class="text-espresso/25">•</span>
-      <span><strong id="badge-out" class="text-espresso">40g</strong> out</span>
-      <span class="text-espresso/25">•</span>
-      <span><strong id="badge-time" class="text-espresso">25–30s</strong></span>
-      <span class="text-espresso/25 hidden xs:inline">•</span>
-      <span class="hidden xs:inline">Grind <strong id="badge-grind" class="text-copper">25</strong></span>
     </div>
 
-    <!-- Top-Right Settings Gear -->
+    <!-- Upper-Right Settings Gear Button -->
     <button
       id="settings-btn"
       type="button"
-      aria-label="Open Recipe Settings"
-      class="group flex items-center gap-1.5 px-3 py-2 rounded-full bg-creamDark/80 hover:bg-creamDark border border-espresso/10 text-espresso transition-all active:scale-95 shadow-sm"
+      aria-label="Recipe and Step Settings"
+      class="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-card border border-espresso/10 shadow-sm text-espresso hover:bg-creamDark active:scale-95 transition-all"
     >
-      <span class="text-xs font-semibold tracking-wide hidden sm:inline">Recipe</span>
-      <svg class="w-4 h-4 text-espresso transition-transform duration-300 group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-espresso" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="3"/>
         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
       </svg>
+      <span class="hidden sm:inline text-xs font-semibold">Recipe</span>
     </button>
   </header>
 
-  <!-- Main Tap-Anywhere Stage -->
-  <main
-    id="tap-stage"
-    class="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-8 py-2 flex flex-col justify-center cursor-pointer relative"
-  >
-    <!-- STEP WALKTHROUGH CARD (Steps 1 to 19) -->
-    <div
-      id="step-view"
-      class="w-full bg-white rounded-3xl shadow-card border border-espresso/10 p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5 sm:gap-8 min-h-[260px] sm:min-h-[300px] transition-all"
-    >
-      <!-- Left Column (Landscape) / Top (Portrait): Custom Line-Drawing SVG -->
-      <div class="w-full sm:w-5/12 flex items-center justify-center bg-cream/70 rounded-2xl p-4 sm:p-6 border border-espresso/5 shrink-0">
-        <div id="step-illustration" class="w-44 h-36 sm:w-56 sm:h-44 flex items-center justify-center svg-float">
-          <!-- Injected SVG -->
+  <!-- Main Interactive Stage (Tap almost anywhere to advance during steps) -->
+  <main id="tap-stage" class="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-8 py-2 flex items-center justify-center overflow-hidden cursor-pointer">
+
+    <!-- STEP INSTRUCTION CARD (Landscape split: Line Art on Left, Instruction + Subtext on Right) -->
+    <div id="step-view" class="w-full h-full max-h-[340px] sm:max-h-[380px] bg-card rounded-3xl border border-espresso/10 shadow-[0_10px_30px_-10px_rgba(44,30,22,0.12)] px-5 py-4 sm:px-9 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-8 relative overflow-hidden">
+
+      <!-- Left Column: Minimalist Line Drawing Illustration -->
+      <div class="w-full sm:w-5/12 h-36 sm:h-full flex items-center justify-center bg-cream/70 rounded-2xl border border-espresso/5 p-3 sm:p-5 shrink-0">
+        <div id="step-illustration" class="w-full h-full flex items-center justify-center text-espresso">
+          <!-- SVG injected dynamically -->
         </div>
       </div>
 
-      <!-- Right Column (Landscape) / Bottom (Portrait): Instruction Text & Subtext -->
-      <div class="w-full sm:w-7/12 flex flex-col justify-center text-center sm:text-left">
-        <div class="inline-flex items-center justify-center sm:justify-start gap-2 mb-2">
-          <span id="step-pill" class="px-2.5 py-0.5 rounded-full bg-copper/15 text-copperDark text-xs font-bold uppercase tracking-wider">
-            Step 1 of 19
-          </span>
-          <span id="step-category" class="text-xs font-medium text-espressoLight/75">
-            Preparation
-          </span>
+      <!-- Right Column: Step Badge, Main Guidance Text, Subtext, and End Actions -->
+      <div class="w-full sm:w-7/12 flex flex-col justify-between h-full py-1">
+        <div>
+          <!-- Step Indicator Tag -->
+          <div class="flex items-center gap-2 mb-2 sm:mb-3">
+            <span id="step-badge" class="px-2.5 py-0.5 rounded-full bg-copper/15 text-copperDark font-bold text-xs tracking-wide uppercase">
+              Step 1 of 19
+            </span>
+            <span id="step-category" class="text-xs font-medium text-espressoLight/80">
+              Setup
+            </span>
+          </div>
+
+          <!-- Primary Instruction -->
+          <h1 id="step-title" class="text-lg sm:text-2xl md:text-[26px] font-bold text-espresso leading-snug tracking-tight">
+            Prep: beans, spray bottle, tray, scale, portafilter and metal funnel, WDT tool, leveler, tamper, and portafilter screens.
+          </h1>
+
+          <!-- Optional Smaller Subtext -->
+          <p id="step-subtext" class="mt-2 sm:mt-3 text-xs sm:text-sm md:text-base text-espressoLight leading-relaxed font-normal">
+          </p>
         </div>
 
-        <h1 id="step-main-text" class="font-serif text-xl sm:text-2xl md:text-3xl font-bold text-espresso leading-snug tracking-tight">
-          <!-- Dynamic Step Main Instruction -->
-        </h1>
-
-        <p id="step-sub-text" class="mt-3 text-sm sm:text-base text-espressoLight leading-relaxed bg-cream/90 px-4 py-2.5 rounded-xl border border-espresso/5">
-          <!-- Dynamic Step Subtext -->
-        </p>
-
-        <!-- Final Step (Step 19) Action Buttons -->
-        <div id="final-step-actions" class="hidden mt-5 flex flex-wrap items-center justify-center sm:justify-start gap-3">
-          <button
-            id="open-diagnosis-btn"
-            type="button"
-            class="px-5 py-2.5 rounded-xl bg-copper hover:bg-copperDark text-white font-semibold text-sm shadow-md transition-all active:scale-95 flex items-center gap-2"
-          >
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 20h9"/>
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-            </svg>
-            Dial In / Taste Feedback
-          </button>
-
+        <!-- Final Step Action Buttons (Shown only on the last step) -->
+        <div id="final-step-actions" class="hidden mt-3 pt-3 border-t border-espresso/10 flex flex-wrap items-center gap-2.5">
           <button
             id="restart-btn"
             type="button"
-            class="px-5 py-2.5 rounded-xl bg-creamDark hover:bg-espresso hover:text-cream text-espresso font-semibold text-sm border border-espresso/15 transition-all active:scale-95 flex items-center gap-2"
+            class="px-4 py-2.5 rounded-xl bg-espresso text-cream font-semibold text-xs sm:text-sm hover:bg-espressoLight active:scale-95 transition-all shadow-sm flex items-center gap-1.5"
           >
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="1 4 1 10 7 10"/>
               <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
             </svg>
-            Back to Start
+            Start Over (Step 1)
+          </button>
+
+          <button
+            id="open-diagnosis-btn"
+            type="button"
+            class="px-4 py-2.5 rounded-xl bg-copper text-white font-semibold text-xs sm:text-sm hover:bg-copperDark active:scale-95 transition-all shadow-sm flex items-center gap-1.5"
+          >
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+            Taste &amp; Dial-In Feedback
           </button>
         </div>
       </div>
     </div>
 
-    <!-- DIAGNOSIS / DIAL-IN MODE VIEW (Hidden until requested) -->
-    <div
-      id="diagnosis-view"
-      class="hidden w-full bg-white rounded-3xl shadow-card border border-espresso/10 p-5 sm:p-7 cursor-default"
-    >
-      <div class="flex flex-col lg:flex-row gap-6">
-        <!-- Left Side: Shot Measurements & Taste Inputs -->
+    <!-- OPTIONAL FEEDBACK / DIAGNOSIS SCREEN (After Step 19) -->
+    <div id="diagnosis-view" class="hidden w-full h-full max-h-[395px] bg-card rounded-3xl border border-espresso/10 shadow-[0_10px_30px_-10px_rgba(44,30,22,0.12)] p-4 sm:p-6 overflow-y-auto no-scrollbar cursor-default">
+      <div class="flex flex-col lg:flex-row gap-4 sm:gap-6 h-full">
+
+        <!-- Left Side: Shot Result Inputs (Rotary Dial Selectors) -->
         <div class="w-full lg:w-1/2 flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between mb-1">
-              <span class="px-2.5 py-0.5 rounded-full bg-sage/20 text-sageDark text-xs font-bold uppercase tracking-wider">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-full bg-sage/20 text-sageDark font-bold text-xs uppercase tracking-wide">
                 Barista Dial-In Assistant
               </span>
-              <button id="close-diagnosis-btn" type="button" class="text-xs font-semibold text-espressoLight hover:text-espresso underline">
-                Return to Step 19
-              </button>
+              <span class="text-[11px] text-espressoLight">Target: <strong id="diag-target-summary">40g in 25–30s</strong></span>
             </div>
-            <h2 class="font-serif text-xl sm:text-2xl font-bold text-espresso">How did your espresso turn out?</h2>
-            <p class="text-xs sm:text-sm text-espressoLight mt-0.5">Enter your actual scale reading, shot time, and taste for tailored recipe advice.</p>
+            <h2 class="text-base sm:text-lg font-bold text-espresso">How did your shot pull &amp; taste?</h2>
 
-            <!-- Weight & Time Inputs Row -->
-            <div class="grid grid-cols-2 gap-3 mt-4">
-              <div class="bg-cream rounded-2xl p-3 border border-espresso/10">
-                <label for="diag-weight" class="block text-xs font-semibold text-espressoLight mb-1">
-                  Output Weight (g)
-                </label>
-                <div class="flex items-center gap-2">
-                  <input
-                    id="diag-weight"
-                    type="number"
-                    step="0.5"
-                    min="5"
-                    max="120"
-                    class="w-full bg-white rounded-xl px-3 py-2 text-lg font-bold text-espresso border border-espresso/15 focus:outline-none focus:border-copper"
-                  />
-                  <span class="text-xs font-bold text-espressoLight">g</span>
+            <!-- Rotary Dial Selectors for Actual Weight & Actual Time -->
+            <div class="grid grid-cols-2 gap-3 mt-2.5">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-semibold text-espressoLight">Output Weight</span>
+                  <div class="flex items-center gap-1">
+                    <button type="button" data-dial-step="diag-weight:-1" class="w-6 h-6 rounded-md bg-creamDark hover:bg-espresso/15 text-espresso font-bold text-xs flex items-center justify-center active:scale-90">−</button>
+                    <button type="button" data-dial-step="diag-weight:1" class="w-6 h-6 rounded-md bg-creamDark hover:bg-espresso/15 text-espresso font-bold text-xs flex items-center justify-center active:scale-90">+</button>
+                  </div>
                 </div>
-                <span id="diag-weight-target-hint" class="block text-[11px] text-espressoLight/80 mt-1">Target: 40g</span>
+                <div id="dial-diag-weight"></div>
               </div>
 
-              <div class="bg-cream rounded-2xl p-3 border border-espresso/10">
-                <label for="diag-time" class="block text-xs font-semibold text-espressoLight mb-1">
-                  Total Shot Time (s)
-                </label>
-                <div class="flex items-center gap-2">
-                  <input
-                    id="diag-time"
-                    type="number"
-                    step="1"
-                    min="5"
-                    max="90"
-                    placeholder="28"
-                    class="w-full bg-white rounded-xl px-3 py-2 text-lg font-bold text-espresso border border-espresso/15 focus:outline-none focus:border-copper"
-                  />
-                  <span class="text-xs font-bold text-espressoLight">sec</span>
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-semibold text-espressoLight">Total Shot Time</span>
+                  <div class="flex items-center gap-1">
+                    <button type="button" data-dial-step="diag-time:-1" class="w-6 h-6 rounded-md bg-creamDark hover:bg-espresso/15 text-espresso font-bold text-xs flex items-center justify-center active:scale-90">−</button>
+                    <button type="button" data-dial-step="diag-time:1" class="w-6 h-6 rounded-md bg-creamDark hover:bg-espresso/15 text-espresso font-bold text-xs flex items-center justify-center active:scale-90">+</button>
+                  </div>
                 </div>
-                <span id="diag-time-target-hint" class="block text-[11px] text-espressoLight/80 mt-1">Target: 25–30s</span>
+                <div id="dial-diag-time"></div>
               </div>
             </div>
 
             <!-- Taste Profile Selector -->
-            <div class="mt-4">
-              <label class="block text-xs font-semibold text-espressoLight mb-2">How did it taste?</label>
-              <div class="grid grid-cols-3 gap-2" id="taste-selector">
+            <div class="mt-3">
+              <span class="block text-xs font-semibold text-espressoLight mb-1.5">How did it taste?</span>
+              <div class="grid grid-cols-3 gap-2" id="taste-selector-group">
                 <button
                   type="button"
                   data-taste="sour"
-                  class="taste-btn px-2.5 py-2.5 rounded-xl border border-espresso/15 bg-cream hover:bg-creamDark text-xs sm:text-sm font-semibold text-espresso transition-all text-center flex flex-col items-center gap-0.5"
+                  class="taste-btn py-2 px-2 rounded-xl border border-espresso/15 bg-cream hover:bg-creamDark text-xs sm:text-sm font-semibold text-espresso transition-all flex flex-col items-center gap-0.5"
                 >
-                  <span>🍋 Sour</span>
-                  <span class="text-[10px] font-normal opacity-75">Sharp / Acidic</span>
+                  <span>🍋 Sour / Acidic</span>
+                  <span class="text-[10px] font-normal text-espressoLight">Sharp, under-extracted</span>
                 </button>
 
                 <button
                   type="button"
                   data-taste="balanced"
-                  class="taste-btn px-2.5 py-2.5 rounded-xl border-2 border-sage bg-sage/15 text-xs sm:text-sm font-bold text-espresso transition-all text-center flex flex-col items-center gap-0.5"
+                  class="taste-btn py-2 px-2 rounded-xl border-2 border-copper bg-copper/15 text-xs sm:text-sm font-bold text-espresso transition-all flex flex-col items-center gap-0.5"
                 >
                   <span>✨ Balanced</span>
-                  <span class="text-[10px] font-normal opacity-75">Sweet & Rich</span>
+                  <span class="text-[10px] font-normal text-espressoLight">Sweet &amp; rich</span>
                 </button>
 
                 <button
                   type="button"
                   data-taste="bitter"
-                  class="taste-btn px-2.5 py-2.5 rounded-xl border border-espresso/15 bg-cream hover:bg-creamDark text-xs sm:text-sm font-semibold text-espresso transition-all text-center flex flex-col items-center gap-0.5"
+                  class="taste-btn py-2 px-2 rounded-xl border border-espresso/15 bg-cream hover:bg-creamDark text-xs sm:text-sm font-semibold text-espresso transition-all flex flex-col items-center gap-0.5"
                 >
-                  <span>🍫 Bitter</span>
-                  <span class="text-[10px] font-normal opacity-75">Dry / Astringent</span>
+                  <span>🍫 Bitter / Dry</span>
+                  <span class="text-[10px] font-normal text-espressoLight">Harsh, astringent</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Right Side: Smart Recommendation Output -->
-        <div class="w-full lg:w-1/2 bg-cream rounded-2xl p-4 sm:p-5 border border-espresso/10 flex flex-col justify-between">
+        <!-- Right Side: Diagnostic Recommendations & Recipe Apply -->
+        <div class="w-full lg:w-1/2 bg-cream/85 rounded-2xl p-4 sm:p-5 border border-espresso/10 flex flex-col justify-between">
           <div>
-            <div class="flex items-center gap-2 mb-2">
-              <svg class="w-5 h-5 text-copper shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="12" y1="16" x2="12" y2="12"/>
-                <line x1="12" y1="8" x2="12.01" y2="8"/>
-              </svg>
-              <h3 class="font-serif text-base sm:text-lg font-bold text-espresso">Next Shot Recommendation</h3>
-            </div>
-
-            <div id="diagnosis-results" class="space-y-2.5 text-xs sm:text-sm text-espresso leading-relaxed">
-              <!-- Populated dynamically by JS -->
+            <h3 class="text-xs font-bold uppercase tracking-wider text-espressoLight mb-2">
+              Recommended Adjustments
+            </h3>
+            <div id="diagnosis-results" class="space-y-2 text-xs sm:text-sm">
+              <!-- Populated dynamically -->
             </div>
           </div>
 
-          <!-- Action Buttons inside Recommendation Box -->
-          <div class="mt-4 pt-3 border-t border-espresso/10 flex flex-wrap items-center gap-2.5">
+          <div class="mt-3 pt-3 border-t border-espresso/10 flex flex-wrap items-center justify-between gap-2.5">
             <button
               id="apply-recommendation-btn"
               type="button"
-              class="hidden px-4 py-2.5 rounded-xl bg-sage hover:bg-sageDark text-white font-semibold text-xs sm:text-sm shadow-sm transition-all active:scale-95 flex items-center gap-1.5"
+              class="hidden px-4 py-2 rounded-xl bg-sage hover:bg-sageDark text-white font-semibold text-xs sm:text-sm shadow-sm transition-all active:scale-95 flex items-center gap-1.5"
             >
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"/>
@@ -345,12 +346,30 @@
               <span id="apply-rec-label">Apply to Recipe</span>
             </button>
 
+            <!-- Save Dialed-In Bean Profile Control (Shown when shot is dialed in) -->
+            <div id="save-profile-box" class="hidden flex-1 min-w-[220px] flex items-center gap-1.5">
+              <input
+                id="dialed-profile-name"
+                type="text"
+                maxlength="36"
+                placeholder="Name bean (e.g. Holiday Blend)"
+                class="flex-1 min-w-0 px-3 py-2 rounded-xl bg-card border border-sage/40 text-xs font-semibold text-espresso placeholder:text-espressoLight/50 focus:outline-none focus:border-sage"
+              />
+              <button
+                id="save-dialed-profile-btn"
+                type="button"
+                class="px-3.5 py-2 rounded-xl bg-sage hover:bg-sageDark text-white font-semibold text-xs shadow-sm transition-all active:scale-95 whitespace-nowrap"
+              >
+                ★ Save Profile
+              </button>
+            </div>
+
             <button
               id="diag-restart-btn"
               type="button"
-              class="px-4 py-2.5 rounded-xl bg-espresso hover:bg-espressoLight text-cream font-semibold text-xs sm:text-sm transition-all active:scale-95 ml-auto"
+              class="px-4 py-2 rounded-xl bg-espresso hover:bg-espressoLight text-cream font-semibold text-xs sm:text-sm transition-all active:scale-95 ml-auto"
             >
-              Make Another Shot →
+              Start Another Shot ↺
             </button>
           </div>
         </div>
@@ -358,42 +377,49 @@
     </div>
   </main>
 
-  <!-- Bottom Footer: Progress Bar & Tap Hint -->
-  <footer id="bottom-bar" class="w-full max-w-5xl mx-auto px-4 sm:px-8 pb-3 pt-1 shrink-0">
-    <div class="flex items-center justify-between text-xs text-espressoLight mb-1.5">
-      <span id="footer-step-label" class="font-semibold">Step 1 of 19</span>
-      <span id="footer-tap-hint" class="flex items-center gap-1 text-espressoLight/80">
-        Tap anywhere to continue
-        <svg class="w-3.5 h-3.5 text-copper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="9 18 15 12 9 6"/>
-        </svg>
-      </span>
-    </div>
-    <!-- Segmented / Smooth Progress Track -->
-    <div class="w-full h-2 bg-creamDark rounded-full overflow-hidden border border-espresso/5">
-      <div
-        id="progress-fill"
-        class="h-full bg-copper rounded-full transition-all duration-300 ease-out"
-        style="width: 5.26%;"
-      ></div>
+  <!-- Bottom Progress Bar & Tap Prompt -->
+  <footer id="bottom-bar" class="w-full px-4 sm:px-8 pb-3 pt-1 shrink-0 transition-opacity">
+    <div class="max-w-5xl mx-auto flex flex-col gap-1.5">
+      <div class="flex items-center justify-between text-xs text-espressoLight">
+        <span id="footer-step-label" class="font-semibold">Step 1 of 19</span>
+        <span id="footer-tap-hint" class="inline-flex items-center gap-1 font-medium text-espressoLight/80">
+          Tap anywhere to continue
+          <svg class="w-3.5 h-3.5 text-copper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </span>
+      </div>
+      <!-- Smooth Progress Track -->
+      <div class="w-full h-1.5 bg-creamDark rounded-full overflow-hidden">
+        <div id="progress-fill" class="h-full bg-copper rounded-full transition-all duration-300" style="width: 5.26%"></div>
+      </div>
     </div>
   </footer>
 
-  <!-- RECIPE SETTINGS MODAL -->
-  <div
-    id="settings-modal"
-    class="hidden fixed inset-0 z-50 bg-espresso/50 backdrop-blur-xs flex items-center justify-center p-4"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="settings-title"
-  >
-    <div class="bg-cream w-full max-w-lg rounded-3xl shadow-2xl border border-espresso/15 p-5 sm:p-6 max-h-[92vh] overflow-y-auto">
-      <div class="flex items-center justify-between pb-3 border-b border-espresso/10">
-        <div>
-          <h2 id="settings-title" class="font-serif text-xl font-bold text-espresso">Espresso Recipe Settings</h2>
-          <p class="text-xs text-espressoLight">Updates instructions automatically across all steps.</p>
+  <!-- RECIPE & STEP EDITOR MODAL (Tabbed: Recipe Dials | Edit Steps & GitHub Sync) -->
+  <div id="settings-modal" class="hidden fixed inset-0 z-50 bg-espresso/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-card w-full max-w-3xl max-h-[92vh] rounded-3xl border border-espresso/15 shadow-2xl p-4 sm:p-6 flex flex-col overflow-hidden">
+
+      <!-- Modal Header & Tabs -->
+      <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-espresso/10 shrink-0">
+        <div class="flex items-center gap-2 bg-creamDark p-1 rounded-xl">
+          <button
+            id="tab-recipe-btn"
+            type="button"
+            class="px-3.5 py-1.5 rounded-lg bg-card text-espresso font-bold text-xs sm:text-sm shadow-xs transition"
+          >
+            🎛️ Recipe Dials
+          </button>
+          <button
+            id="tab-steps-btn"
+            type="button"
+            class="px-3.5 py-1.5 rounded-lg text-espressoLight hover:text-espresso font-semibold text-xs sm:text-sm transition"
+          >
+            ✏️ Edit Steps &amp; Text
+          </button>
         </div>
-        <button id="close-settings-x" type="button" aria-label="Close Settings" class="p-2 rounded-full hover:bg-creamDark text-espresso">
+
+        <button id="close-settings-btn" type="button" aria-label="Close settings" class="p-2 rounded-xl hover:bg-creamDark text-espressoLight transition">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"/>
             <line x1="6" y1="6" x2="18" y2="18"/>
@@ -401,1051 +427,1470 @@
         </button>
       </div>
 
-      <!-- Recipe Controls Grid -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 my-4">
-        <!-- Coffee In -->
-        <div class="bg-white p-3 rounded-2xl border border-espresso/10">
-          <label for="set-coffee-in" class="block text-xs font-semibold text-espressoLight mb-1">Coffee In (g)</label>
-          <input id="set-coffee-in" type="number" step="0.5" min="10" max="25" class="w-full text-lg font-bold text-espresso bg-cream/60 rounded-xl px-3 py-1.5 border border-espresso/15 focus:outline-none focus:border-copper" />
-          <span class="text-[10px] text-espressoLight/75">Default: 18g</span>
+      <!-- TAB 1: RECIPE ROTARY DIAL SELECTORS -->
+      <div id="panel-recipe" class="flex-1 overflow-y-auto no-scrollbar pt-3 flex flex-col justify-between">
+        <div>
+          <!-- Saved Bean Profiles Strip -->
+          <div class="mb-3 p-2.5 rounded-2xl bg-cream border border-espresso/10">
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-espressoLight">Saved Bean Profiles</span>
+              <span id="active-profile-badge" class="text-[11px] font-semibold text-copperDark">Custom / Unsaved</span>
+            </div>
+            <div id="saved-profiles-list" class="flex flex-wrap items-center gap-1.5">
+              <!-- Profile chips rendered dynamically -->
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <!-- Coffee In Dial -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-espresso">Coffee In</span>
+                <div class="flex gap-1">
+                  <button type="button" data-dial-step="set-in:-1" class="w-6 h-6 rounded bg-creamDark hover:bg-espresso/15 text-xs font-bold">−</button>
+                  <button type="button" data-dial-step="set-in:1" class="w-6 h-6 rounded bg-creamDark hover:bg-espresso/15 text-xs font-bold">+</button>
+                </div>
+              </div>
+              <div id="dial-set-in"></div>
+            </div>
+
+            <!-- Coffee Out Dial -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-espresso">Coffee Out</span>
+                <div class="flex gap-1">
+                  <button type="button" data-dial-step="set-out:-1" class="w-6 h-6 rounded bg-creamDark hover:bg-espresso/15 text-xs font-bold">−</button>
+                  <button type="button" data-dial-step="set-out:1" class="w-6 h-6 rounded bg-creamDark hover:bg-espresso/15 text-xs font-bold">+</button>
+                </div>
+              </div>
+              <div id="dial-set-out"></div>
+            </div>
+
+            <!-- Grinder Dial -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-espresso">Grinder Dial</span>
+                <div class="flex gap-1">
+                  <button type="button" data-dial-step="set-grind:-1" class="w-6 h-6 rounded bg-creamDark hover:bg-espresso/15 text-xs font-bold">−</button>
+                  <button type="button" data-dial-step="set-grind:1" class="w-6 h-6 rounded bg-creamDark hover:bg-espresso/15 text-xs font-bold">+</button>
+                </div>
+              </div>
+              <div id="dial-set-grind"></div>
+            </div>
+
+            <!-- Target Time Range Dials (Min & Max) -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-espresso">Time (Min / Max)</span>
+              </div>
+              <div class="grid grid-cols-2 gap-1.5">
+                <div id="dial-set-tmin"></div>
+                <div id="dial-set-tmax"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Calculated Ratio & Scale Cut-Off Preview -->
+          <div class="mt-3 p-3 rounded-2xl bg-cream border border-espresso/10 flex flex-wrap items-center justify-between gap-2 text-xs text-espressoLight">
+            <span>Brew Ratio: <strong id="settings-ratio-preview" class="text-espresso">1 : 2.2</strong></span>
+            <span>Scale Stop Target: <strong id="settings-stop-preview" class="text-copperDark">36g</strong> (accounts for ~4g drip after stop)</span>
+          </div>
         </div>
 
-        <!-- Coffee Out -->
-        <div class="bg-white p-3 rounded-2xl border border-espresso/10">
-          <label for="set-coffee-out" class="block text-xs font-semibold text-espressoLight mb-1">Coffee Out (g)</label>
-          <input id="set-coffee-out" type="number" step="1" min="15" max="90" class="w-full text-lg font-bold text-espresso bg-cream/60 rounded-xl px-3 py-1.5 border border-espresso/15 focus:outline-none focus:border-copper" />
-          <span class="text-[10px] text-espressoLight/75">Default: 40g</span>
-        </div>
+        <div class="mt-4 pt-3 border-t border-espresso/10 flex items-center justify-between gap-3">
+          <button
+            id="reset-defaults-btn"
+            type="button"
+            class="px-3.5 py-2.5 rounded-xl border border-espresso/15 text-xs font-semibold text-espressoLight hover:bg-creamDark transition"
+          >
+            Reset Defaults (18g / 40g / Grind 11)
+          </button>
 
-        <!-- Grinder Setting -->
-        <div class="bg-white p-3 rounded-2xl border border-espresso/10 col-span-2 sm:col-span-1">
-          <label for="set-grinder" class="block text-xs font-semibold text-espressoLight mb-1">Grinder Setting</label>
-          <input id="set-grinder" type="number" step="1" min="1" max="50" class="w-full text-lg font-bold text-copper bg-cream/60 rounded-xl px-3 py-1.5 border border-espresso/15 focus:outline-none focus:border-copper" />
-          <span class="text-[10px] text-espressoLight/75">Default: 25</span>
-        </div>
-
-        <!-- Target Time Min -->
-        <div class="bg-white p-3 rounded-2xl border border-espresso/10">
-          <label for="set-time-min" class="block text-xs font-semibold text-espressoLight mb-1">Min Time (s)</label>
-          <input id="set-time-min" type="number" step="1" min="10" max="60" class="w-full text-lg font-bold text-espresso bg-cream/60 rounded-xl px-3 py-1.5 border border-espresso/15 focus:outline-none focus:border-copper" />
-          <span class="text-[10px] text-espressoLight/75">Default: 25s</span>
-        </div>
-
-        <!-- Target Time Max -->
-        <div class="bg-white p-3 rounded-2xl border border-espresso/10">
-          <label for="set-time-max" class="block text-xs font-semibold text-espressoLight mb-1">Max Time (s)</label>
-          <input id="set-time-max" type="number" step="1" min="15" max="75" class="w-full text-lg font-bold text-espresso bg-cream/60 rounded-xl px-3 py-1.5 border border-espresso/15 focus:outline-none focus:border-copper" />
-          <span class="text-[10px] text-espressoLight/75">Default: 30s</span>
-        </div>
-
-        <!-- Ratio Preview -->
-        <div class="bg-creamDark/60 p-3 rounded-2xl border border-espresso/10 flex flex-col justify-center">
-          <span class="text-[11px] font-semibold text-espressoLight">Brew Ratio</span>
-          <span id="settings-ratio-preview" class="text-base font-bold text-espresso mt-0.5">1 : 2.2</span>
-          <span class="text-[10px] text-espressoLight/80">Stop pull at <strong id="settings-stop-preview">36g</strong></span>
+          <button
+            id="save-settings-btn"
+            type="button"
+            class="px-5 py-2.5 rounded-xl bg-copper hover:bg-copperDark text-white font-semibold text-xs sm:text-sm shadow-sm transition active:scale-95"
+          >
+            Save Recipe
+          </button>
         </div>
       </div>
 
-      <!-- Modal Footer Buttons -->
-      <div class="flex items-center justify-between pt-3 border-t border-espresso/10 gap-3">
-        <button
-          id="reset-defaults-btn"
-          type="button"
-          class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-espressoLight hover:text-espresso hover:bg-creamDark transition-colors"
-        >
-          Reset to Defaults
-        </button>
+      <!-- TAB 2: NO-CODE STEP & TEXT EDITOR + GITHUB SYNC -->
+      <div id="panel-steps" class="hidden flex-1 overflow-y-auto no-scrollbar pt-3 flex flex-col justify-between gap-3">
+        <!-- GitHub Sync & Info Banner -->
+        <div class="p-3 rounded-2xl bg-sage/15 border border-sage/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+          <div class="text-xs text-espresso">
+            <p class="font-bold text-sageDark">Update Family Phones Without Editing HTML</p>
+            <p class="text-espressoLight mt-0.5">
+              Edit wording or add/remove steps below. Use tokens <code class="px-1 bg-card rounded font-mono">{{coffeeIn}}</code>, <code class="px-1 bg-card rounded font-mono">{{coffeeOut}}</code>, <code class="px-1 bg-card rounded font-mono">{{stopWeight}}</code>, <code class="px-1 bg-card rounded font-mono">{{grindSize}}</code>. Export <strong>steps.json</strong> and upload it next to <code>index.html</code> on GitHub to update everyone's devices automatically!
+            </p>
+          </div>
+          <div class="flex flex-wrap sm:flex-col gap-1.5 shrink-0">
+            <button
+              id="download-steps-json-btn"
+              type="button"
+              class="px-3 py-1.5 rounded-xl bg-sage hover:bg-sageDark text-white font-semibold text-xs shadow-xs transition active:scale-95 whitespace-nowrap"
+            >
+              ⬇ Download steps.json
+            </button>
+            <button
+              id="copy-steps-json-btn"
+              type="button"
+              class="px-3 py-1.5 rounded-xl bg-card hover:bg-creamDark border border-espresso/15 text-espresso font-semibold text-xs transition active:scale-95 whitespace-nowrap"
+            >
+              📋 Copy JSON
+            </button>
+          </div>
+        </div>
 
-        <button
-          id="save-settings-btn"
-          type="button"
-          class="px-6 py-2.5 rounded-xl bg-copper hover:bg-copperDark text-white font-semibold text-xs sm:text-sm shadow-md transition-all active:scale-95"
-        >
-          Save & Close
-        </button>
+        <!-- Scrollable List of Editable Steps -->
+        <div id="step-editor-list" class="space-y-2.5 pr-1 max-h-[46vh] overflow-y-auto">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Step Editor Footer Controls -->
+        <div class="pt-2.5 border-t border-espresso/10 flex flex-wrap items-center justify-between gap-2 shrink-0">
+          <div class="flex items-center gap-2">
+            <button
+              id="add-step-btn"
+              type="button"
+              class="px-3.5 py-2 rounded-xl bg-espresso text-cream font-semibold text-xs hover:bg-espressoLight transition active:scale-95"
+            >
+              + Add New Step
+            </button>
+            <button
+              id="reset-steps-btn"
+              type="button"
+              class="px-3 py-2 rounded-xl border border-espresso/15 text-espressoLight font-semibold text-xs hover:bg-creamDark transition"
+            >
+              Reset Original 19 Steps
+            </button>
+          </div>
+
+          <button
+            id="save-steps-local-btn"
+            type="button"
+            class="px-4 py-2 rounded-xl bg-copper hover:bg-copperDark text-white font-semibold text-xs sm:text-sm shadow-sm transition active:scale-95"
+          >
+            Save &amp; Preview Changes
+          </button>
+        </div>
       </div>
+
     </div>
   </div>
 
-  <!-- Toast Notification Banner (Replaces alert) -->
-  <div
-    id="toast-banner"
-    class="pointer-events-none fixed bottom-16 left-1/2 -translate-x-1/2 z-50 opacity-0 transition-all duration-300 bg-espresso text-cream px-4 py-2 rounded-full shadow-lg text-xs sm:text-sm font-medium flex items-center gap-2"
-  >
-    <span class="w-2 h-2 rounded-full bg-sage"></span>
-    <span id="toast-message">Settings saved!</span>
+  <!-- Toast Notification Banner -->
+  <div id="toast-banner" class="hidden fixed bottom-16 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-espresso text-cream text-xs font-semibold shadow-lg transition-all">
+    Saved!
   </div>
 
   <script>
-    /**
-     * Default Recipe Configuration
-     */
+    // =========================================================================
+    // 1. DEFAULT RECIPE, DIALED-IN PROFILES & STATE MANAGEMENT
+    // =========================================================================
     const DEFAULT_RECIPE = {
+      profileName: 'House Default',
       coffeeIn: 18,
       coffeeOut: 40,
       timeMin: 25,
       timeMax: 30,
-      grinderSetting: 25
+      grinderSetting: 11,
     };
 
-    const STORAGE_KEY = 'holiday_espresso_recipe_v1';
+    const DEFAULT_PROFILES = [
+      {
+        id: 'default-house',
+        name: 'House Default',
+        coffeeIn: 18,
+        coffeeOut: 40,
+        timeMin: 25,
+        timeMax: 30,
+        grinderSetting: 11,
+      },
+    ];
 
-    // Load recipe from localStorage safely
+    let recipe = loadRecipe();
+    let savedProfiles = loadSavedProfiles();
+    let currentStepIndex = 0; // 0 .. steps.length - 1, or steps.length for Diagnosis Mode
+    let selectedTaste = 'balanced';
+    let pendingRecommendation = null;
+
     function loadRecipe() {
       try {
-        const saved = localStorage.getItem(STORAGE_KEY);
+        const saved = localStorage.getItem('holiday_espresso_recipe_v2');
         if (saved) {
-          const parsed = JSON.parse(saved);
-          return {
-            coffeeIn: Number(parsed.coffeeIn) || DEFAULT_RECIPE.coffeeIn,
-            coffeeOut: Number(parsed.coffeeOut) || DEFAULT_RECIPE.coffeeOut,
-            timeMin: Number(parsed.timeMin) || DEFAULT_RECIPE.timeMin,
-            timeMax: Number(parsed.timeMax) || DEFAULT_RECIPE.timeMax,
-            grinderSetting: Number(parsed.grinderSetting) || DEFAULT_RECIPE.grinderSetting
-          };
+          return { ...DEFAULT_RECIPE, ...JSON.parse(saved) };
         }
       } catch (e) {
-        console.warn('Could not read recipe from localStorage:', e);
+        console.warn('Could not load saved recipe:', e);
       }
       return { ...DEFAULT_RECIPE };
     }
 
-    function saveRecipe(newRecipe) {
-      recipe = { ...newRecipe };
+    function loadSavedProfiles() {
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(recipe));
+        const raw = localStorage.getItem('holiday_espresso_profiles_v1');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {
+        console.warn('Could not load saved profiles:', e);
+      }
+      return JSON.parse(JSON.stringify(DEFAULT_PROFILES));
+    }
+
+    function persistSavedProfiles() {
+      try {
+        localStorage.setItem('holiday_espresso_profiles_v1', JSON.stringify(savedProfiles));
+      } catch (e) {
+        console.warn('Could not save profiles:', e);
+      }
+    }
+
+    function saveRecipe(newRecipe) {
+      recipe = { ...recipe, ...newRecipe };
+      try {
+        localStorage.setItem('holiday_espresso_recipe_v2', JSON.stringify(recipe));
       } catch (e) {
         console.warn('Could not persist recipe:', e);
       }
-      updateRecipeBadges();
+      updateRecipeHeader();
     }
 
-    let recipe = loadRecipe();
-    let currentStepIndex = 0; // 0 to 18 (19 steps total)
-    let selectedTaste = 'balanced';
-    let pendingRecommendation = null;
+    function saveDialedInProfile(nameInput) {
+      const cleanName = (nameInput || '').trim() || `Dialed Blend (${recipe.coffeeIn}g→${recipe.coffeeOut}g)`;
+      const existingIdx = savedProfiles.findIndex(
+        (p) => p.name.toLowerCase() === cleanName.toLowerCase()
+      );
+      const profileObj = {
+        id: existingIdx >= 0 ? savedProfiles[existingIdx].id : `prof-${Date.now()}`,
+        name: cleanName,
+        coffeeIn: recipe.coffeeIn,
+        coffeeOut: recipe.coffeeOut,
+        timeMin: recipe.timeMin,
+        timeMax: recipe.timeMax,
+        grinderSetting: recipe.grinderSetting,
+      };
 
-    /**
-     * Custom Minimalist Line-Drawing SVGs for Each of the 19 Steps
-     * Palette: #2C1E16 (espresso ink), #C86D51 (copper accent), #6B8E78 (sage), #F2EAE0 (warm fill)
-     */
-    const STEP_SVGS = [
-      // 1. Prep flat-lay: beans, spray bottle, tray, scale, portafilter, funnel, WDT, leveler, tamper, puck screens
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Scale -->
-        <rect x="16" y="102" width="54" height="44" rx="6" fill="#F2EAE0"/>
-        <rect x="24" y="132" width="38" height="8" rx="2" fill="#FFFFFF" stroke-width="1.5"/>
-        <!-- Ceramic Dosing Tray + Beans -->
-        <path d="M22 68 Q43 84 64 68 L58 84 Q43 90 28 84 Z" fill="#FFFFFF"/>
-        <ellipse cx="38" cy="70" rx="4" ry="2.5" fill="#C86D51"/>
-        <ellipse cx="47" cy="71" rx="4" ry="2.5" fill="#C86D51"/>
-        <ellipse cx="42" cy="66" rx="3.5" ry="2.2" fill="#2C1E16"/>
-        <!-- Spray Bottle -->
-        <rect x="33" y="26" width="16" height="28" rx="4" fill="#FFFFFF"/>
-        <path d="M37 26 V19 H47 L52 22" />
-        <line x1="55" y1="20" x2="60" y2="18" stroke="#C86D51" stroke-width="1.8"/>
-        <line x1="55" y1="23" x2="61" y2="23" stroke="#C86D51" stroke-width="1.8"/>
-        <!-- Portafilter & Metal Funnel -->
-        <circle cx="115" cy="52" r="22" fill="#FFFFFF"/>
-        <circle cx="115" cy="52" r="16" stroke="#C86D51" stroke-width="2"/>
-        <path d="M115 74 L115 138" stroke-width="6" stroke="#2C1E16"/>
-        <path d="M115 74 L115 92" stroke-width="6" stroke="#C86D51"/>
-        <!-- WDT Tool -->
-        <rect x="155" y="22" width="8" height="32" rx="3" fill="#2C1E16"/>
-        <line x1="157" y1="54" x2="154" y2="82" stroke-width="1.4"/>
-        <line x1="159" y1="54" x2="159" y2="84" stroke-width="1.4"/>
-        <line x1="161" y1="54" x2="164" y2="82" stroke-width="1.4"/>
-        <!-- Leveler & Tamper -->
-        <rect x="182" y="28" width="36" height="16" rx="3" fill="#F2EAE0"/>
-        <line x1="182" y1="36" x2="218" y2="36" stroke="#C86D51"/>
-        <path d="M188 64 H212 L208 78 H192 Z" fill="#C86D51"/>
-        <rect x="182" y="78" width="36" height="10" rx="2" fill="#FFFFFF"/>
-        <!-- Puck Screens -->
-        <circle cx="164" cy="126" r="14" fill="#F2EAE0" stroke-dasharray="2 2"/>
-        <circle cx="200" cy="126" r="14" fill="#F2EAE0" stroke-dasharray="2 2"/>
-      </svg>`,
+      if (existingIdx >= 0) {
+        savedProfiles[existingIdx] = profileObj;
+      } else {
+        savedProfiles.push(profileObj);
+      }
+      persistSavedProfiles();
+      saveRecipe({ profileName: cleanName });
+      renderSavedProfilesList();
+      showToast(`Saved "${cleanName}" to Bean Profiles!`);
+    }
 
-      // 2. Wipe out portafilter, insert, press 1-cup button (Preheat)
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Grouphead -->
-        <path d="M55 24 H165 V52 H55 Z" fill="#F2EAE0"/>
-        <rect x="75" y="52" width="70" height="14" rx="2" fill="#FFFFFF"/>
-        <!-- 1-Cup Button highlighted -->
-        <circle cx="142" cy="38" r="9" fill="#C86D51" stroke="#2C1E16"/>
-        <text x="142" y="42" text-anchor="middle" font-size="10" font-weight="bold" fill="#FFFFFF" stroke="none">1</text>
-        <!-- Portafilter locked in -->
-        <rect x="80" y="66" width="60" height="22" rx="3" fill="#FFFFFF"/>
-        <path d="M140 77 L205 77" stroke-width="7" stroke="#2C1E16"/>
-        <path d="M140 77 L160 77" stroke-width="7" stroke="#C86D51"/>
-        <!-- Warm Preheat Steam / Water Drops -->
-        <path d="M98 98 Q94 106 98 114" stroke="#C86D51" stroke-width="2"/>
-        <path d="M110 100 Q106 108 110 116" stroke="#C86D51" stroke-width="2"/>
-        <path d="M122 98 Q118 106 122 114" stroke="#C86D51" stroke-width="2"/>
-        <path d="M84 128 Q110 138 136 128" stroke="#6B8E78" stroke-width="2" stroke-dasharray="4 3"/>
-      </svg>`,
+    function showToast(msg) {
+      const toast = document.getElementById('toast-banner');
+      toast.textContent = msg;
+      toast.classList.remove('hidden');
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 2400);
+    }
 
-      // 3. Weigh out beans in ceramic tray on scale
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Digital Espresso Scale -->
-        <rect x="45" y="104" width="150" height="44" rx="8" fill="#F2EAE0"/>
-        <rect x="65" y="114" width="110" height="24" rx="4" fill="#FFFFFF"/>
-        <text id="svg-step3-weight" x="120" y="131" text-anchor="middle" font-size="14" font-family="monospace" font-weight="bold" fill="#2C1E16" stroke="none">18.0 g</text>
-        <!-- Scale Weighing Pan -->
-        <line x1="60" y1="98" x2="180" y2="98" stroke-width="3"/>
-        <line x1="120" y1="98" x2="120" y2="104" stroke-width="3"/>
-        <!-- Ceramic Dosing Tray -->
-        <path d="M72 68 C82 94, 158 94, 168 68 C145 76, 95 76, 72 68 Z" fill="#FFFFFF"/>
-        <!-- Coffee Beans -->
-        <ellipse cx="104" cy="68" rx="7" ry="4.5" transform="rotate(-15 104 68)" fill="#C86D51"/>
-        <ellipse cx="120" cy="70" rx="7" ry="4.5" transform="rotate(10 120 70)" fill="#2C1E16"/>
-        <ellipse cx="135" cy="67" rx="7" ry="4.5" transform="rotate(-8 135 67)" fill="#C86D51"/>
-        <ellipse cx="113" cy="61" rx="6.5" ry="4" transform="rotate(20 113 61)" fill="#C86D51"/>
-        <ellipse cx="128" cy="60" rx="6.5" ry="4" transform="rotate(-18 128 60)" fill="#2C1E16"/>
-      </svg>`,
+    // =========================================================================
+    // 2. ROTARY DIAL WHEEL COMPONENT (Touch/Scroll Drum Picker)
+    // =========================================================================
+    class RotaryDial {
+      constructor(containerEl, options) {
+        this.container = containerEl;
+        this.min = options.min;
+        this.max = options.max;
+        this.step = options.step || 1;
+        this.unit = options.unit || '';
+        this.decimals = options.decimals || 0;
+        this.onChange = options.onChange || (() => {});
+        this.itemHeight = 36;
+        this.values = [];
 
-      // 4. Spritz beans with water (RDT) and give a little shake
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Spray Bottle on Left -->
-        <rect x="36" y="54" width="30" height="62" rx="6" fill="#FFFFFF"/>
-        <path d="M44 54 V40 H66 L76 46" />
-        <path d="M62 46 L58 56" stroke-width="2"/>
-        <!-- Fine Water Mist Dots -->
-        <circle cx="88" cy="44" r="1.8" fill="#6B8E78" stroke="none"/>
-        <circle cx="98" cy="40" r="2.2" fill="#6B8E78" stroke="none"/>
-        <circle cx="102" cy="50" r="1.8" fill="#6B8E78" stroke="none"/>
-        <circle cx="112" cy="46" r="2.2" fill="#6B8E78" stroke="none"/>
-        <circle cx="115" cy="56" r="1.8" fill="#6B8E78" stroke="none"/>
-        <circle cx="94" cy="54" r="1.6" fill="#6B8E78" stroke="none"/>
-        <!-- Ceramic Tray Tilting / Shaking -->
-        <g transform="rotate(-8 155 95)">
-          <path d="M112 86 C122 112, 194 112, 204 86 C182 94, 134 94, 112 86 Z" fill="#FFFFFF"/>
-          <ellipse cx="144" cy="84" rx="6.5" ry="4" fill="#C86D51"/>
-          <ellipse cx="160" cy="86" rx="6.5" ry="4" fill="#2C1E16"/>
-          <ellipse cx="174" cy="83" rx="6.5" ry="4" fill="#C86D51"/>
-          <ellipse cx="154" cy="77" rx="6" ry="3.8" fill="#C86D51"/>
-        </g>
-        <!-- Gentle Shake Lines -->
-        <path d="M124 120 Q158 128 192 120" stroke="#C86D51" stroke-width="2" stroke-dasharray="5 4"/>
-      </svg>`,
+        for (let v = this.min; v <= this.max + 1e-9; v += this.step) {
+          this.values.push(Number(v.toFixed(this.decimals)));
+        }
 
-      // 5. Check grinder dial setting
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Side of Breville Grinder Housing -->
-        <rect x="44" y="24" width="152" height="122" rx="14" fill="#F2EAE0"/>
-        <!-- Dial Wheel -->
-        <circle cx="120" cy="85" r="44" fill="#FFFFFF" stroke-width="2.5"/>
-        <circle cx="120" cy="85" r="32" stroke="#C86D51" stroke-width="1.8" stroke-dasharray="4 4"/>
-        <!-- Indicator Pointer -->
-        <polygon points="120,28 114,40 126,40" fill="#C86D51" stroke="#2C1E16" stroke-width="1.5"/>
-        <!-- Dynamic Grinder Number -->
-        <text id="svg-step5-grind" x="120" y="93" text-anchor="middle" font-size="24" font-family="Fraunces, serif" font-weight="bold" fill="#2C1E16" stroke="none">25</text>
-        <text x="120" y="109" text-anchor="middle" font-size="8" font-weight="bold" fill="#5C473C" stroke="none">GRIND SIZE</text>
-      </svg>`,
+        this.currentValue = this.snapToNearest(options.value ?? this.values[0]);
+        this.render();
+      }
 
-      // 6. Add funnel to portafilter, set in place under grinder
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Grinder Chute & Cradle -->
-        <path d="M72 20 H148 V48 H72 Z" fill="#F2EAE0"/>
-        <path d="M98 48 L92 64 H128 L122 48 Z" fill="#FFFFFF"/>
-        <!-- Cradle Arms -->
-        <path d="M68 74 H82 V112 H68" stroke-width="2.5"/>
-        <!-- Metal Dosing Funnel -->
-        <path d="M82 68 L88 92 H132 L138 68 Z" fill="#C86D51" fill-opacity="0.2" stroke="#C86D51" stroke-width="2.3"/>
-        <!-- Bottomless Portafilter -->
-        <rect x="86" y="92" width="48" height="20" rx="2" fill="#FFFFFF"/>
-        <path d="M134 102 L198 102" stroke-width="7" stroke="#2C1E16"/>
-        <path d="M134 102 L152 102" stroke-width="7" stroke="#C86D51"/>
-        <!-- Up/In Arrow -->
-        <path d="M168 126 H142" stroke="#6B8E78" stroke-width="2.2"/>
-        <polyline points="148 121 142 126 148 131" stroke="#6B8E78" stroke-width="2.2"/>
-      </svg>`,
+      snapToNearest(val) {
+        let best = this.values[0];
+        let bestDiff = Math.abs(val - best);
+        for (const v of this.values) {
+          const d = Math.abs(val - v);
+          if (d < bestDiff) {
+            best = v;
+            bestDiff = d;
+          }
+        }
+        return best;
+      }
 
-      // 7. Push in portafilter to start grinder, drop in beans, replace bellows cap
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Single-Dose Bellows Cap hovering above hopper -->
-        <path d="M88 18 H132 L128 28 H92 L88 18 Z" fill="#2C1E16"/>
-        <path d="M92 28 L96 36 L90 42 H130 L124 36 L128 28" fill="#F2EAE0"/>
-        <!-- Beans dropping into hopper -->
-        <ellipse cx="104" cy="54" rx="4.5" ry="3" fill="#C86D51"/>
-        <ellipse cx="116" cy="58" rx="4.5" ry="3" fill="#2C1E16"/>
-        <ellipse cx="109" cy="64" rx="4.5" ry="3" fill="#C86D51"/>
-        <!-- Grinder Hopper Collar -->
-        <path d="M84 68 H136 L130 88 H90 Z" fill="#FFFFFF"/>
-        <!-- Portafilter with Funnel pushed in -->
-        <path d="M88 94 L92 112 H128 L132 94 Z" fill="#C86D51" fill-opacity="0.2" stroke="#C86D51"/>
-        <rect x="90" y="112" width="40" height="18" rx="2" fill="#FFFFFF"/>
-        <path d="M130 121 L192 121" stroke-width="6.5"/>
-        <!-- Push-in indicator -->
-        <path d="M185 138 H155" stroke="#C86D51" stroke-width="2.2"/>
-        <polyline points="161 133 155 138 161 143" stroke="#C86D51" stroke-width="2.2"/>
-      </svg>`,
+      render() {
+        this.container.innerHTML = '';
+        const wrapper = document.createElement('div');
+        wrapper.className = 'dial-wrapper';
 
-      // 8. Press down on accordion bellows repeatedly to push air through
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Hand pressing top -->
-        <path d="M82 24 C95 18, 125 18, 138 24 L134 34 H86 Z" fill="#F2EAE0"/>
-        <!-- Downward Press Arrows -->
-        <line x1="72" y1="26" x2="72" y2="48" stroke="#C86D51" stroke-width="2.2"/>
-        <polyline points="67 43 72 48 77 43" stroke="#C86D51" stroke-width="2.2"/>
-        <line x1="148" y1="26" x2="148" y2="48" stroke="#C86D51" stroke-width="2.2"/>
-        <polyline points="143 43 148 48 153 43" stroke="#C86D51" stroke-width="2.2"/>
-        <!-- Compressed Accordion Bellows -->
-        <path d="M84 36 H136 L130 44 L136 52 L130 60 H90 L84 52 L90 44 Z" fill="#FFFFFF"/>
-        <!-- Grinder Body & Grounds Puffing Out -->
-        <rect x="86" y="60" width="48" height="32" rx="3" fill="#F2EAE0"/>
-        <!-- Air Puff & Grounds into Funnel -->
-        <path d="M102 96 V112" stroke="#6B8E78" stroke-width="2" stroke-dasharray="3 3"/>
-        <path d="M110 96 V116" stroke="#C86D51" stroke-width="2" stroke-dasharray="3 3"/>
-        <path d="M118 96 V112" stroke="#6B8E78" stroke-width="2" stroke-dasharray="3 3"/>
-        <!-- Funnel + Portafilter -->
-        <path d="M86 114 L92 132 H128 L134 114 Z" fill="#C86D51" fill-opacity="0.2" stroke="#C86D51"/>
-        <rect x="90" y="132" width="40" height="16" rx="2" fill="#FFFFFF"/>
-        <path d="M130 140 L185 140" stroke-width="6"/>
-      </svg>`,
+        const leftKnurl = document.createElement('div');
+        leftKnurl.className = 'dial-knurl border-r border-espresso/10';
 
-      // 9. Remove portafilter with funnel, cover with hand, give a little shake
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <g transform="rotate(-6 110 85)">
-          <!-- Hand palm covering funnel top -->
-          <path d="M68 56 C76 46, 126 46, 134 56 C138 61, 132 65, 124 65 H76 C68 65, 64 61, 68 56 Z" fill="#F2EAE0"/>
-          <!-- Funnel -->
-          <path d="M74 65 L82 92 H122 L130 65 Z" fill="#C86D51" fill-opacity="0.2" stroke="#C86D51"/>
-          <!-- Portafilter -->
-          <rect x="80" y="92" width="44" height="22" rx="3" fill="#FFFFFF"/>
-          <path d="M124 103 L188 103" stroke-width="7"/>
-          <path d="M124 103 L144 103" stroke-width="7" stroke="#C86D51"/>
-        </g>
-        <!-- Shake Motion Arcs -->
-        <path d="M52 72 Q46 86 52 100" stroke="#C86D51" stroke-width="2.2"/>
-        <path d="M44 76 Q38 86 44 96" stroke="#C86D51" stroke-width="1.8"/>
-        <path d="M196 86 Q204 98 198 112" stroke="#C86D51" stroke-width="2.2"/>
-      </svg>`,
+        const rightKnurl = document.createElement('div');
+        rightKnurl.className = 'dial-knurl border-l border-espresso/10';
 
-      // 10. WDT tool stirring grounds with a spirograph pattern
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Subminimal Flick WDT Handle -->
-        <rect x="103" y="14" width="14" height="44" rx="4" fill="#2C1E16"/>
-        <line x1="103" y1="26" x2="117" y2="26" stroke="#C86D51" stroke-width="2"/>
-        <!-- Fine WDT Needles -->
-        <line x1="106" y1="58" x2="96" y2="104" stroke-width="1.5"/>
-        <line x1="109" y1="58" x2="105" y2="106" stroke-width="1.5"/>
-        <line x1="111" y1="58" x2="115" y2="106" stroke-width="1.5"/>
-        <line x1="114" y1="58" x2="124" y2="104" stroke-width="1.5"/>
-        <!-- Spirograph Loop Motion -->
-        <ellipse cx="110" cy="74" rx="22" ry="6" stroke="#C86D51" stroke-width="1.8" stroke-dasharray="4 3"/>
-        <!-- Funnel + Portafilter -->
-        <path d="M76 84 L84 112 H136 L144 84 Z" fill="#C86D51" fill-opacity="0.15" stroke="#C86D51"/>
-        <rect x="82" y="112" width="56" height="24" rx="3" fill="#FFFFFF"/>
-        <path d="M138 124 L198 124" stroke-width="7"/>
-      </svg>`,
+        const centerBand = document.createElement('div');
+        centerBand.className = 'dial-center-band';
 
-      // 11. Hold portafilter level and knock it on the countertop
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Downward Knock Arrows -->
-        <line x1="56" y1="48" x2="56" y2="76" stroke="#C86D51" stroke-width="2.4"/>
-        <polyline points="50 70 56 76 62 70" stroke="#C86D51" stroke-width="2.4"/>
-        <line x1="154" y1="48" x2="154" y2="76" stroke="#C86D51" stroke-width="2.4"/>
-        <polyline points="148 70 154 76 160 70" stroke="#C86D51" stroke-width="2.4"/>
-        <!-- Portafilter with Funnel Level -->
-        <path d="M74 62 L80 86 H130 L136 62 Z" fill="#C86D51" fill-opacity="0.2" stroke="#C86D51"/>
-        <rect x="78" y="86" width="54" height="24" rx="2" fill="#FFFFFF"/>
-        <path d="M132 98 L196 98" stroke-width="7"/>
-        <!-- Countertop Surface -->
-        <line x1="28" y1="116" x2="212" y2="116" stroke-width="3.5"/>
-        <!-- Impact Ripples -->
-        <path d="M64 124 L56 132" stroke="#C86D51" stroke-width="2"/>
-        <path d="M146 124 L154 132" stroke="#C86D51" stroke-width="2"/>
-        <line x1="92" y1="126" x2="118" y2="126" stroke="#6B8E78" stroke-width="2"/>
-      </svg>`,
+        const drum = document.createElement('div');
+        drum.className = 'dial-drum no-scrollbar';
+        drum.style.paddingTop = '38px';
+        drum.style.paddingBottom = '38px';
 
-      // 12. Remove funnel, smooth grounds with Knodos leveling tool
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Spin Rotation Arrow above Leveler -->
-        <path d="M74 42 C90 30, 122 30, 138 42" stroke="#C86D51" stroke-width="2.2"/>
-        <polyline points="132 43 138 42 137 36" stroke="#C86D51" stroke-width="2.2"/>
-        <!-- Knodos Leveler / Distributor Tool -->
-        <rect x="76" y="52" width="60" height="16" rx="3" fill="#2C1E16"/>
-        <rect x="76" y="68" width="60" height="12" rx="2" fill="#C86D51"/>
-        <path d="M82 80 L94 87 L106 80 L118 87 L130 80" fill="#F2EAE0"/>
-        <!-- Portafilter (Funnel removed) -->
-        <rect x="76" y="88" width="60" height="26" rx="3" fill="#FFFFFF"/>
-        <path d="M136 101 L198 101" stroke-width="7"/>
-        <!-- Countertop -->
-        <line x1="32" y1="120" x2="208" y2="120" stroke-width="3"/>
-      </svg>`,
+        this.itemEls = this.values.map((val, idx) => {
+          const item = document.createElement('div');
+          item.className = 'dial-item text-sm font-semibold text-espressoLight/60';
+          item.textContent = `${val}${this.unit}`;
+          item.addEventListener('click', () => {
+            this.setIndex(idx, true);
+          });
+          drum.appendChild(item);
+          return item;
+        });
 
-      // 13. Place portafilter flat, press spring-loaded tamper straight down with twist
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Downward Pressure Arrow -->
-        <line x1="106" y1="12" x2="106" y2="30" stroke="#C86D51" stroke-width="2.4"/>
-        <polyline points="101 25 106 30 111 25" stroke="#C86D51" stroke-width="2.4"/>
-        <!-- Knodos Spring-Loaded Tamper Handle -->
-        <path d="M84 36 C84 28, 128 28, 128 36 L122 52 H90 Z" fill="#2C1E16"/>
-        <!-- Spring / Auto-leveling Collar -->
-        <rect x="82" y="52" width="48" height="12" rx="2" fill="#C86D51"/>
-        <rect x="78" y="64" width="56" height="14" rx="2" fill="#F2EAE0"/>
-        <!-- Twist Arrow -->
-        <path d="M62 56 Q56 64 66 70" stroke="#6B8E78" stroke-width="2"/>
-        <polyline points="62 72 67 70 65 65" stroke="#6B8E78" stroke-width="2"/>
-        <!-- Portafilter Flat on Counter -->
-        <rect x="76" y="78" width="60" height="26" rx="3" fill="#FFFFFF"/>
-        <path d="M136 91 L198 91" stroke-width="7"/>
-        <line x1="32" y1="110" x2="208" y2="110" stroke-width="3"/>
-      </svg>`,
+        wrapper.appendChild(leftKnurl);
+        wrapper.appendChild(centerBand);
+        wrapper.appendChild(drum);
+        wrapper.appendChild(rightKnurl);
+        this.container.appendChild(wrapper);
+        this.drum = drum;
 
-      // 14. Set metal puck screen on top of the bed of grounds
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Metal Puck Screen hovering & lowering -->
-        <ellipse cx="106" cy="54" rx="26" ry="6" fill="#F2EAE0" stroke="#C86D51" stroke-width="2.2"/>
-        <line x1="88" y1="54" x2="124" y2="54" stroke="#2C1E16" stroke-width="1.2" stroke-dasharray="2 2"/>
-        <!-- Placement Arrow -->
-        <line x1="106" y1="64" x2="106" y2="78" stroke="#6B8E78" stroke-width="2.2"/>
-        <polyline points="101 73 106 78 111 73" stroke="#6B8E78" stroke-width="2.2"/>
-        <!-- Portafilter with Level Coffee Puck -->
-        <rect x="76" y="84" width="60" height="28" rx="3" fill="#FFFFFF"/>
-        <rect x="80" y="88" width="52" height="12" fill="#2C1E16" fill-opacity="0.85"/>
-        <path d="M136 98 L198 98" stroke-width="7"/>
-        <line x1="32" y1="118" x2="208" y2="118" stroke-width="3"/>
-      </svg>`,
+        let scrollTimeout = null;
+        drum.addEventListener('scroll', () => {
+          this.updateVisualStyles();
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            const idx = Math.round(drum.scrollTop / this.itemHeight);
+            const clamped = Math.max(0, Math.min(this.values.length - 1, idx));
+            const newVal = this.values[clamped];
+            if (newVal !== this.currentValue) {
+              this.currentValue = newVal;
+              this.onChange(this.currentValue);
+            }
+          }, 60);
+        });
 
-      // 15. Lock portafilter under grouphead, set cup and scale underneath
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Grouphead -->
-        <rect x="64" y="14" width="92" height="24" rx="3" fill="#F2EAE0"/>
-        <!-- Locked Bottomless Portafilter -->
-        <rect x="82" y="38" width="56" height="18" rx="2" fill="#FFFFFF"/>
-        <path d="M138 47 L194 47" stroke-width="6.5"/>
-        <path d="M138 47 L156 47" stroke-width="6.5" stroke="#C86D51"/>
-        <!-- Espresso Cup -->
-        <path d="M90 80 H130 L125 112 C124 116, 96 116, 95 112 Z" fill="#FFFFFF"/>
-        <path d="M130 86 H137 C141 86, 141 98, 137 98 H128" />
-        <!-- Scale Underneath -->
-        <rect x="68" y="118" width="84" height="28" rx="5" fill="#F2EAE0"/>
-        <rect x="82" y="125" width="56" height="14" rx="2" fill="#FFFFFF"/>
-        <text x="110" y="135" text-anchor="middle" font-size="9" font-family="monospace" font-weight="bold" fill="#2C1E16" stroke="none">0.0 g</text>
-      </svg>`,
+        // Set initial scroll position without firing onChange prematurely
+        this.setValue(this.currentValue, false, false);
+      }
 
-      // 16. Press and hold two-cup button for 10 seconds (preinfusion)
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Machine Control Panel -->
-        <rect x="34" y="24" width="120" height="58" rx="10" fill="#F2EAE0"/>
-        <!-- 1-Cup Button -->
-        <circle cx="68" cy="53" r="14" fill="#FFFFFF"/>
-        <text x="68" y="57" text-anchor="middle" font-size="11" font-weight="bold" fill="#2C1E16" stroke="none">1</text>
-        <!-- 2-Cup Button (Pressed & Glowing) -->
-        <circle cx="114" cy="53" r="16" fill="#C86D51"/>
-        <text x="114" y="57" text-anchor="middle" font-size="12" font-weight="bold" fill="#FFFFFF" stroke="none">2</text>
-        <!-- Finger Pressing 2-Cup Button -->
-        <path d="M120 118 L114 68 C113 62, 123 61, 125 67 L136 112" fill="#FFFFFF"/>
-        <!-- 10s Hold Timer Badge -->
-        <rect x="150" y="34" width="58" height="36" rx="10" fill="#2C1E16"/>
-        <text x="179" y="57" text-anchor="middle" font-size="15" font-family="monospace" font-weight="bold" fill="#FBF7F2" stroke="none">10s</text>
-        <!-- Gentle Pre-infusion Drops -->
-        <circle cx="72" cy="102" r="2.5" fill="#C86D51" stroke="none"/>
-        <circle cx="84" cy="112" r="2.5" fill="#C86D51" stroke="none"/>
-        <circle cx="96" cy="104" r="2.5" fill="#C86D51" stroke="none"/>
-      </svg>`,
+      updateVisualStyles() {
+        const centerScroll = this.drum.scrollTop;
+        this.itemEls.forEach((el, idx) => {
+          const itemCenter = idx * this.itemHeight;
+          const dist = Math.abs(centerScroll - itemCenter);
+          if (dist < 18) {
+            el.className = 'dial-item text-lg sm:text-xl font-extrabold text-espresso scale-105';
+          } else if (dist < 44) {
+            el.className = 'dial-item text-sm font-semibold text-espressoLight/75';
+          } else {
+            el.className = 'dial-item text-xs font-medium text-espressoLight/35';
+          }
+        });
+      }
 
-      // 17. Watch scale, press button again to stop at {stopWeight}g
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Bottomless Basket -->
-        <rect x="72" y="18" width="60" height="16" rx="2" fill="#FFFFFF"/>
-        <path d="M132 26 L176 26" stroke-width="6"/>
-        <!-- Rich Tiger-Striped Espresso Stream -->
-        <path d="M88 34 Q102 52 102 74" stroke="#C86D51" stroke-width="3"/>
-        <path d="M116 34 Q102 52 102 74" stroke="#2C1E16" stroke-width="3"/>
-        <line x1="102" y1="54" x2="102" y2="82" stroke="#C86D51" stroke-width="4"/>
-        <!-- Cup on Scale -->
-        <path d="M82 78 H122 L117 108 H87 Z" fill="#FFFFFF"/>
-        <path d="M84 88 H120" stroke="#C86D51" stroke-width="3"/>
-        <!-- Scale with Stop Weight -->
-        <rect x="58" y="114" width="88" height="34" rx="6" fill="#F2EAE0"/>
-        <rect x="70" y="121" width="64" height="20" rx="3" fill="#FFFFFF"/>
-        <text id="svg-step17-stop" x="102" y="135" text-anchor="middle" font-size="12" font-family="monospace" font-weight="bold" fill="#C86D51" stroke="none">36.0g</text>
-        <!-- Stop Button Callout on Right -->
-        <circle cx="192" cy="76" r="18" fill="#C86D51"/>
-        <rect x="186" y="70" width="12" height="12" rx="2" fill="#FFFFFF" stroke="none"/>
-        <text x="192" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#2C1E16" stroke="none">STOP</text>
-      </svg>`,
+      setIndex(idx, smooth = true, emit = true) {
+        const clamped = Math.max(0, Math.min(this.values.length - 1, idx));
+        this.currentValue = this.values[clamped];
+        this.drum.scrollTo({
+          top: clamped * this.itemHeight,
+          behavior: smooth ? 'smooth' : 'auto',
+        });
+        this.updateVisualStyles();
+        if (emit && this.onChange) this.onChange(this.currentValue);
+      }
 
-      // 18. Make a note of where the timer stopped (25-30s)
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Scale Display Card -->
-        <rect x="34" y="42" width="172" height="86" rx="12" fill="#F2EAE0"/>
-        <rect x="48" y="56" width="144" height="58" rx="8" fill="#FFFFFF"/>
-        <!-- Timer & Final Weight -->
-        <text id="svg-step18-time" x="88" y="91" text-anchor="middle" font-size="20" font-family="monospace" font-weight="bold" fill="#6B8E78" stroke="none">28s</text>
-        <line x1="122" y1="66" x2="122" y2="104" stroke="#2C1E16" stroke-opacity="0.2" stroke-width="2"/>
-        <text id="svg-step18-weight" x="156" y="91" text-anchor="middle" font-size="18" font-family="monospace" font-weight="bold" fill="#2C1E16" stroke="none">40g</text>
-        <text x="88" y="105" text-anchor="middle" font-size="8" font-weight="bold" fill="#5C473C" stroke="none">TIME</text>
-        <text x="156" y="105" text-anchor="middle" font-size="8" font-weight="bold" fill="#5C473C" stroke="none">YIELD</text>
-        <!-- Small Checkmark Badge -->
-        <circle cx="196" cy="44" r="14" fill="#6B8E78"/>
-        <polyline points="190 44 194 48 202 40" stroke="#FFFFFF" stroke-width="2.5"/>
-      </svg>`,
+      setValue(val, smooth = false, emit = true) {
+        const snapped = this.snapToNearest(val);
+        const idx = this.values.indexOf(snapped);
+        this.setIndex(idx >= 0 ? idx : 0, smooth, emit);
+      }
 
-      // 19. Give your espresso a little stir before enjoying!
-      `<svg viewBox="0 0 240 170" class="w-full h-full" fill="none" stroke="#2C1E16" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Saucer -->
-        <ellipse cx="120" cy="134" rx="68" ry="12" fill="#F2EAE0"/>
-        <!-- Warm Espresso Cup -->
-        <path d="M74 72 H162 L152 124 C150 132, 86 132, 84 124 Z" fill="#FFFFFF"/>
-        <!-- Handle -->
-        <path d="M160 82 H174 C182 82, 182 106, 174 106 H156" stroke-width="3"/>
-        <!-- Golden Crema Layer -->
-        <ellipse cx="118" cy="72" rx="44" ry="9" fill="#C86D51"/>
-        <!-- Demitasse Spoon Stirring -->
-        <path d="M144 26 L120 72" stroke-width="3.2"/>
-        <circle cx="146" cy="24" r="4" fill="#C86D51"/>
-        <!-- Swirl & Aroma Lines -->
-        <path d="M98 46 Q92 36 98 26" stroke="#C86D51" stroke-width="2"/>
-        <path d="M116 42 Q110 32 116 22" stroke="#C86D51" stroke-width="2"/>
-        <path d="M96 72 Q118 77 140 72" stroke="#FBF7F2" stroke-width="1.6"/>
-      </svg>`
+      getValue() {
+        return this.currentValue;
+      }
+
+      stepBy(delta) {
+        const idx = this.values.indexOf(this.currentValue);
+        this.setIndex(idx + delta, true, true);
+      }
+    }
+
+    // =========================================================================
+    // 3. MINIMALIST LINE-DRAWING SVG ILLUSTRATIONS LIBRARY
+    // =========================================================================
+    const ILLUSTRATIONS = {
+      prep: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="20" y="108" width="52" height="12" rx="3"/>
+          <rect x="30" y="96" width="32" height="12" rx="2"/>
+          <rect x="34" y="54" width="24" height="34" rx="4"/>
+          <path d="M40 54v-8h12v8M36 46h22l4-4"/>
+          <circle cx="46" cy="40" r="1.5" fill="#C86D51" stroke="none"/>
+          <circle cx="66" cy="36" r="1.2" fill="#C86D51" stroke="none"/>
+          <circle cx="68" cy="43" r="1.2" fill="#C86D51" stroke="none"/>
+          <path d="M88 120h54a8 8 0 0 0 8-8v-8H80v8a8 8 0 0 0 8 8z"/>
+          <path d="M150 108h42" stroke-width="3.2"/>
+          <path d="M88 88h38l-6 14H94z" stroke="#C86D51"/>
+          <rect x="166" y="42" width="12" height="26" rx="3"/>
+          <path d="M169 68v24M172 68v26M175 68v24" stroke-width="1.5"/>
+          <path d="M196 92h26v12h-26z"/>
+          <path d="M203 92V76a6 6 0 0 1 12 0v16"/>
+        </svg>`,
+      preheat: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="34" y="20" width="172" height="36" rx="6"/>
+          <circle cx="64" cy="38" r="9" stroke="#C86D51" stroke-width="2.5"/>
+          <text x="64" y="41" text-anchor="middle" font-size="9" font-family="Inter, sans-serif" font-weight="700" fill="#C86D51" stroke="none">1</text>
+          <circle cx="92" cy="38" r="9"/>
+          <text x="92" y="41" text-anchor="middle" font-size="9" font-family="Inter, sans-serif" fill="currentColor" stroke="none">2</text>
+          <path d="M74 56h56v14H74z"/>
+          <path d="M78 70h48v16a10 10 0 0 1-10 10H88a10 10 0 0 1-10-10V70z"/>
+          <path d="M126 78h64" stroke-width="3.5"/>
+          <path d="M88 106c-3 6 3 10 0 16M102 106c-3 6 3 10 0 16M116 106c-3 6 3 10 0 16" stroke="#C86D51" stroke-width="2"/>
+          <line x1="28" y1="138" x2="212" y2="138"/>
+        </svg>`,
+      weighBeans: (r) => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="44" y="96" width="152" height="36" rx="8"/>
+          <rect x="78" y="106" width="84" height="18" rx="4" fill="#FBF7F2"/>
+          <text x="120" y="119" text-anchor="middle" font-size="11" font-family="Inter, sans-serif" font-weight="700" fill="#C86D51" stroke="none">${r.coffeeIn}.0 g</text>
+          <path d="M68 74c14 18 90 18 104 0l-10 22H78L68 74z"/>
+          <ellipse cx="102" cy="70" rx="7" ry="4.5" transform="rotate(-18 102 70)" fill="#FBF7F2"/>
+          <ellipse cx="118" cy="67" rx="7" ry="4.5" transform="rotate(12 118 67)" fill="#FBF7F2"/>
+          <ellipse cx="135" cy="71" rx="7" ry="4.5" transform="rotate(-10 135 71)" fill="#FBF7F2"/>
+          <ellipse cx="111" cy="76" rx="7" ry="4.5" transform="rotate(20 111 76)" fill="#FBF7F2"/>
+          <ellipse cx="127" cy="76" rx="7" ry="4.5" transform="rotate(-15 127 76)" fill="#FBF7F2"/>
+        </svg>`,
+      spritzBeans: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="34" y="64" width="32" height="58" rx="6"/>
+          <path d="M42 64V52h16v12"/>
+          <path d="M38 52h28l6-5M58 52l5 9"/>
+          <circle cx="80" cy="48" r="2" fill="#C86D51" stroke="none"/>
+          <circle cx="92" cy="43" r="2" fill="#C86D51" stroke="none"/>
+          <circle cx="90" cy="54" r="2" fill="#C86D51" stroke="none"/>
+          <circle cx="104" cy="49" r="2.2" fill="#C86D51" stroke="none"/>
+          <circle cx="102" cy="60" r="1.8" fill="#C86D51" stroke="none"/>
+          <path d="M108 92c14 20 82 20 96 0l-10 26h-76l-10-26z"/>
+          <ellipse cx="142" cy="88" rx="7" ry="4.5" transform="rotate(-15 142 88)"/>
+          <ellipse cx="158" cy="86" rx="7" ry="4.5" transform="rotate(14 158 86)"/>
+          <ellipse cx="174" cy="90" rx="7" ry="4.5" transform="rotate(-12 174 90)"/>
+          <path d="M132 72c8-5 16-5 24 0" stroke="#C86D51" stroke-width="1.8"/>
+          <path d="M164 72c8-5 16-5 24 0" stroke="#C86D51" stroke-width="1.8"/>
+        </svg>`,
+      grinderDial: (r) => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="120" cy="82" r="48"/>
+          <circle cx="120" cy="82" r="36" stroke-dasharray="4 6"/>
+          <polygon points="120,24 114,34 126,34" fill="#C86D51" stroke="none"/>
+          <text x="120" y="77" text-anchor="middle" font-size="10" font-family="Inter, sans-serif" font-weight="600" fill="#5C4334" stroke="none">GRIND</text>
+          <text x="120" y="99" text-anchor="middle" font-size="22" font-family="Inter, sans-serif" font-weight="800" fill="#C86D51" stroke="none">${r.grinderSetting}</text>
+          <path d="M62 66a62 62 0 0 1 20-30" stroke="#C86D51" stroke-width="2"/>
+          <polyline points="77 34 83 35 81 41" stroke="#C86D51" stroke-width="2"/>
+        </svg>`,
+      funnelCradle: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M96 22h48v18H96z"/>
+          <path d="M104 40h32l-4 12h-24z"/>
+          <path d="M84 68h72l-10 18H94L84 68z" stroke="#C86D51" stroke-width="2.4"/>
+          <path d="M94 86h52v18a10 10 0 0 1-10 10h-32a10 10 0 0 1-10-10V86z"/>
+          <path d="M146 94h64" stroke-width="3.5"/>
+          <path d="M72 90h18M72 104h18" stroke-width="2.5"/>
+        </svg>`,
+      pushGrindDrop: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M92 24h56l-8 22h-40L92 24z"/>
+          <ellipse cx="112" cy="14" rx="5.5" ry="3.5" fill="#C86D51" stroke="none"/>
+          <ellipse cx="126" cy="18" rx="5.5" ry="3.5" fill="#C86D51" stroke="none"/>
+          <ellipse cx="118" cy="26" rx="5.5" ry="3.5" fill="#C86D51" stroke="none"/>
+          <path d="M88 78h64l-8 14H96l-8-14z" stroke="#C86D51"/>
+          <path d="M96 92h48v18a10 10 0 0 1-10 10h-28a10 10 0 0 1-10-10V92z"/>
+          <path d="M144 100h64" stroke-width="3.5"/>
+          <path d="M188 118h-28" stroke="#C86D51" stroke-width="2.4"/>
+          <polyline points="166 113 159 118 166 123" stroke="#C86D51" stroke-width="2.4"/>
+        </svg>`,
+      bellowsPump: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M88 22c14-6 50-6 64 0" stroke-width="3"/>
+          <path d="M120 8v12" stroke="#C86D51" stroke-width="2.4"/>
+          <polyline points="114 15 120 21 126 15" stroke="#C86D51" stroke-width="2.4"/>
+          <path d="M94 34h52l-6 10 6 10-6 10 6 10H94l6-10-6-10 6-10-6-10z"/>
+          <path d="M100 74h40l-6 16h-28l-6-16z"/>
+          <path d="M110 98v24M120 98v28M130 98v24" stroke="#C86D51" stroke-width="2" stroke-dasharray="3 4"/>
+          <path d="M94 134h52" stroke-width="2.5"/>
+        </svg>`,
+      shakeGrounds: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M76 58c18-10 56-10 74 0" stroke-width="3"/>
+          <path d="M82 64h62l-8 16H90l-8-16z" stroke="#C86D51"/>
+          <path d="M90 80h46v20a10 10 0 0 1-10 10h-26a10 10 0 0 1-10-10V80z"/>
+          <path d="M136 88h66" stroke-width="3.5"/>
+          <path d="M56 72c-4 8-4 18 0 26M48 76c-3 6-3 12 0 18" stroke="#C86D51" stroke-width="2"/>
+          <path d="M168 62c4 6 4 12 0 18" stroke="#C86D51" stroke-width="2"/>
+        </svg>`,
+      wdtSpirograph: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="111" y="14" width="18" height="36" rx="5"/>
+          <line x1="115" y1="50" x2="106" y2="96" stroke-width="1.6"/>
+          <line x1="118" y1="50" x2="115" y2="98" stroke-width="1.6"/>
+          <line x1="122" y1="50" x2="125" y2="98" stroke-width="1.6"/>
+          <line x1="125" y1="50" x2="134" y2="96" stroke-width="1.6"/>
+          <ellipse cx="120" cy="64" rx="22" ry="6" stroke="#C86D51" stroke-width="1.8" stroke-dasharray="4 3"/>
+          <path d="M84 82h72l-8 14H92l-8-14z"/>
+          <path d="M92 96h56v22a10 10 0 0 1-10 10h-36a10 10 0 0 1-10-10V96z"/>
+          <path d="M148 104h62" stroke-width="3.5"/>
+        </svg>`,
+      verticalTap: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M74 68h64l-8 14H82l-8-14z" stroke="#C86D51"/>
+          <path d="M82 82h48v22a10 10 0 0 1-10 10H92a10 10 0 0 1-10-10V82z"/>
+          <path d="M130 90h68" stroke-width="3.5"/>
+          <path d="M106 32v24" stroke="#C86D51" stroke-width="2.5"/>
+          <polyline points="99 49 106 57 113 49" stroke="#C86D51" stroke-width="2.5"/>
+          <line x1="34" y1="126" x2="206" y2="126" stroke-width="2.5"/>
+          <path d="M68 118l-8-6M144 118l8-6" stroke="#C86D51" stroke-width="2"/>
+        </svg>`,
+      leveler: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="78" y="48" width="60" height="22" rx="4"/>
+          <path d="M82 70h52l-6 10H88l-6-10z" fill="#C86D51" fill-opacity="0.2" stroke="#C86D51"/>
+          <path d="M80 34c16-8 40-8 56 0" stroke="#C86D51" stroke-width="2"/>
+          <polyline points="131 29 137 34 130 37" stroke="#C86D51" stroke-width="2"/>
+          <path d="M82 84h52v24a10 10 0 0 1-10 10H92a10 10 0 0 1-10-10V84z"/>
+          <path d="M134 92h68" stroke-width="3.5"/>
+          <line x1="34" y1="126" x2="206" y2="126"/>
+        </svg>`,
+      tamper: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M88 30c0-10 40-10 40 0v14H88V30z"/>
+          <rect x="98" y="44" width="20" height="16"/>
+          <rect x="82" y="60" width="52" height="14" rx="2"/>
+          <rect x="84" y="74" width="48" height="8" fill="#C86D51" stroke="#C86D51"/>
+          <path d="M58 42v26" stroke="#C86D51" stroke-width="2.5"/>
+          <polyline points="52 62 58 69 64 62" stroke="#C86D51" stroke-width="2.5"/>
+          <path d="M82 84h52v24a10 10 0 0 1-10 10H92a10 10 0 0 1-10-10V84z"/>
+          <path d="M134 92h68" stroke-width="3.5"/>
+          <line x1="34" y1="126" x2="206" y2="126" stroke-width="2.5"/>
+        </svg>`,
+      puckScreen: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="108" cy="48" rx="26" ry="7" stroke="#C86D51" stroke-width="2.4" fill="#FBF7F2"/>
+          <path d="M92 48h32M98 45h20M98 51h20" stroke="#C86D51" stroke-width="1.3"/>
+          <path d="M108 60v16" stroke="#C86D51" stroke-width="2"/>
+          <polyline points="103 71 108 77 113 71" stroke="#C86D51" stroke-width="2"/>
+          <path d="M82 84h52v24a10 10 0 0 1-10 10H92a10 10 0 0 1-10-10V84z"/>
+          <line x1="85" y1="95" x2="131" y2="95" stroke-width="2"/>
+          <path d="M134 92h68" stroke-width="3.5"/>
+        </svg>`,
+      lockGrouphead: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="64" y="16" width="84" height="22" rx="4"/>
+          <path d="M80 38h52v20a10 10 0 0 1-10 10H90a10 10 0 0 1-10-10V38z"/>
+          <path d="M132 46h64" stroke-width="3.5"/>
+          <path d="M156 60c14 0 24-4 32-12" stroke="#C86D51" stroke-width="2.2"/>
+          <polyline points="181 47 189 47 188 55" stroke="#C86D51" stroke-width="2.2"/>
+          <path d="M90 84h32l-4 24H94l-4-24z"/>
+          <path d="M122 89h6a5 5 0 0 1 0 10h-6"/>
+          <rect x="68" y="112" width="76" height="20" rx="5"/>
+          <text x="106" y="126" text-anchor="middle" font-size="10" font-family="Inter, sans-serif" font-weight="700" fill="#C86D51" stroke="none">0.0 g</text>
+        </svg>`,
+      preinfusionHold: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="36" y="26" width="168" height="54" rx="10"/>
+          <circle cx="84" cy="53" r="14"/>
+          <text x="84" y="57" text-anchor="middle" font-size="11" font-family="Inter, sans-serif" font-weight="700" fill="currentColor" stroke="none">1</text>
+          <circle cx="136" cy="53" r="16" fill="#C86D51" fill-opacity="0.18" stroke="#C86D51" stroke-width="2.6"/>
+          <text x="136" y="57" text-anchor="middle" font-size="12" font-family="Inter, sans-serif" font-weight="800" fill="#C86D51" stroke="none">2</text>
+          <path d="M144 96l-6-26a6 6 0 0 1 12 0l4 18h14a8 8 0 0 1 8 8v14h-26z" fill="#FBF7F2"/>
+          <rect x="68" y="106" width="66" height="26" rx="13" fill="#2C1E16" stroke="none"/>
+          <text x="101" y="123" text-anchor="middle" font-size="11" font-family="Inter, sans-serif" font-weight="700" fill="#FBF7F2" stroke="none">HOLD 10s</text>
+        </svg>`,
+      stopScaleWeight: (r) => {
+        const stopWeight = Math.max(10, Math.round(r.coffeeOut - 4));
+        return `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M92 22h56v16a10 10 0 0 1-10 10h-36a10 10 0 0 1-10-10V22z"/>
+          <path d="M114 48c0 12 6 18 6 30M126 48c0 12-6 18-6 30" stroke="#C86D51" stroke-width="2.6"/>
+          <path d="M100 76h40l-5 28h-30l-5-28z"/>
+          <path d="M140 82h7a6 6 0 0 1 0 12h-7"/>
+          <rect x="74" y="108" width="92" height="28" rx="6"/>
+          <text x="120" y="126" text-anchor="middle" font-size="13" font-family="Inter, sans-serif" font-weight="800" fill="#C86D51" stroke="none">STOP @ ${stopWeight}g</text>
+        </svg>`;
+      },
+      shotTimer: (r) => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="120" cy="84" r="46"/>
+          <path d="M112 28h16M120 28v10"/>
+          <path d="M152 48l7-7"/>
+          <path d="M120 44a40 40 0 0 1 36 58" stroke="#6B8E78" stroke-width="5"/>
+          <line x1="120" y1="84" x2="144" y2="68" stroke="#C86D51" stroke-width="2.8"/>
+          <circle cx="120" cy="84" r="3.5" fill="#2C1E16"/>
+          <text x="120" y="112" text-anchor="middle" font-size="11" font-family="Inter, sans-serif" font-weight="700" fill="#52705D" stroke="none">${r.timeMin}–${r.timeMax}s</text>
+        </svg>`,
+      stirEnjoy: () => `
+        <svg viewBox="0 0 240 160" class="w-full h-full max-h-44" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M84 64h64l-8 46a10 10 0 0 1-10 8h-28a10 10 0 0 1-10-8l-8-46z"/>
+          <path d="M148 74h10a8 8 0 0 1 0 16h-12"/>
+          <path d="M68 122h96" stroke-width="2.5"/>
+          <path d="M132 28l-18 52" stroke="#C86D51" stroke-width="2.6"/>
+          <ellipse cx="116" cy="54" rx="16" ry="5" stroke="#C86D51" stroke-width="1.6" stroke-dasharray="3 3"/>
+          <path d="M98 42c-3-6 3-10 0-16M116 38c-3-6 3-10 0-16" stroke="#5C4334" stroke-width="1.8"/>
+        </svg>`,
+    };
+
+    const ILLUSTRATION_OPTIONS = [
+      { key: 'prep', label: 'Tools & Prep' },
+      { key: 'preheat', label: 'Preheat / 1-Cup Button' },
+      { key: 'weighBeans', label: 'Scale & Bean Tray' },
+      { key: 'spritzBeans', label: 'Water Spritz Bottle' },
+      { key: 'grinderDial', label: 'Grinder Dial' },
+      { key: 'funnelCradle', label: 'Funnel Under Grinder' },
+      { key: 'pushGrindDrop', label: 'Push Grind & Drop Beans' },
+      { key: 'bellowsPump', label: 'Bellows Pump' },
+      { key: 'shakeGrounds', label: 'Shake Portafilter' },
+      { key: 'wdtSpirograph', label: 'WDT Tool Spirograph' },
+      { key: 'verticalTap', label: 'Countertop Tap' },
+      { key: 'leveler', label: 'Leveling Tool' },
+      { key: 'tamper', label: 'Spring Tamper' },
+      { key: 'puckScreen', label: 'Metal Puck Screen' },
+      { key: 'lockGrouphead', label: 'Lock Into Grouphead' },
+      { key: 'preinfusionHold', label: '2-Cup Preinfusion Hold' },
+      { key: 'stopScaleWeight', label: 'Scale Stop Weight' },
+      { key: 'shotTimer', label: 'Shot Timer' },
+      { key: 'stirEnjoy', label: 'Stir & Enjoy Cup' },
     ];
 
-    /**
-     * Generates the 19 dynamic step objects using current recipe settings
-     */
-    function getSteps() {
-      const stopWeight = Math.max(1, recipe.coffeeOut - 4);
-      return [
-        {
-          category: '1 · Mise en Place',
-          main: 'Prep: beans, spray bottle, tray, scale, portafilter and metal funnel, WDT tool, leveler, tamper, and portafilter screens.',
-          sub: ''
-        },
-        {
-          category: '2 · Machine Warmup',
-          main: 'Wipe out portafilter, insert, and press one-cup button',
-          sub: 'this is for preheating'
-        },
-        {
-          category: '3 · Dosing Beans',
-          main: 'Weigh out beans in ceramic tray',
-          sub: `${recipe.coffeeIn} grams`
-        },
-        {
-          category: '4 · RDT Static Control',
-          main: 'Spritz beans with water, and give it a little shake',
-          sub: 'this little bit of water will keep the grinder from building up too much static.'
-        },
-        {
-          category: '5 · Grind Dial Check',
-          main: 'Check that grinder is set where you want it',
-          sub: `current grinder suggestion: ${recipe.grinderSetting}`
-        },
-        {
-          category: '6 · Grinder Setup',
-          main: 'Add funnel to portafilter, and set in place under grinder',
-          sub: ''
-        },
-        {
-          category: '7 · Single-Dose Grinding',
-          main: 'Push in portafilter to start grinder, then drop in beans and replace bellows cap',
-          sub: ''
-        },
-        {
-          category: '8 · Purging Retention',
-          main: 'While grinding, press down on bellows repeatedly to push air through system',
-          sub: 'grinder should continue 2-3 seconds after it sounds like the last bean went through.'
-        },
-        {
-          category: '9 · Clump Breakup',
-          main: 'Remove portafilter with funnel, cover with your hand, and give it a little shake',
-          sub: 'this will break up any big clumps'
-        },
-        {
-          category: '10 · WDT Distribution',
-          main: 'With WDT tool, stir grounds with a spirograph pattern from bottom to top',
-          sub: 'this will break up the tiny clumps'
-        },
-        {
-          category: '11 · Settling the Bed',
-          main: 'Hold the portafilter level and knock it on the countertop',
-          sub: 'this is to keep you from making a mess when you remove the funnel'
-        },
-        {
-          category: '12 · Leveling Surface',
-          main: 'Remove funnel, and smooth grounds with leveling tool',
-          sub: 'this is to make sure the tamper doesn’t press any part more compact than anywhere else.'
-        },
-        {
-          category: '13 · Calibrated Tamping',
-          main: 'Place the portafilter down flat on the counter, press the tamper straight down on top of the grounds.',
-          sub: 'hold the tamper like a door handle, press straight down, give it a little twist, and pull up.'
-        },
-        {
-          category: '14 · Puck Screen',
-          main: 'Set a metal screen on top of the bed of grounds.',
-          sub: ''
-        },
-        {
-          category: '15 · Lock & Scale',
-          main: 'Lock portafilter under the grouphead, set cup and scale underneath.',
-          sub: ''
-        },
-        {
-          category: '16 · Pre-Infusion',
-          main: 'Press and hold two-cup button for ten seconds then let go.',
-          sub: 'this is a preinfusion of water. if the grounds weren’t even before, they are now!'
-        },
-        {
-          category: '17 · Pulling the Shot',
-          main: `Watch scale, and press the button again to stop the pull when it gets to ${stopWeight} grams`,
-          sub: `coffee will keep flowing for a few seconds, and we want the cup to end up with ${recipe.coffeeOut} grams`
-        },
-        {
-          category: '18 · Shot Timing Check',
-          main: 'Make a note of where the timer stopped.',
-          sub: `we’ll need this later for dialing in. we’re hoping for somewhere between ${recipe.timeMin} and ${recipe.timeMax} seconds.`
-        },
-        {
-          category: '19 · Enjoy!',
-          main: 'Give your espresso a little stir before enjoying!',
-          sub: ''
+    // =========================================================================
+    // 4. DEFAULT 19 PROCESS STEPS + LOCALSTORAGE & GITHUB steps.json LOADER
+    // =========================================================================
+    const DEFAULT_STEPS = [
+      {
+        category: '1 · Prep',
+        title: 'Prep: beans, spray bottle, tray, scale, portafilter and metal funnel, WDT tool, leveler, tamper, and portafilter screens.',
+        subtext: 'Lay everything out on the counter first so nothing rushes you once the shot starts.',
+        icon: 'prep',
+      },
+      {
+        category: '2 · Preheat',
+        title: 'Wipe out portafilter, insert, and press one-cup button.',
+        subtext: 'This is for preheating.',
+        icon: 'preheat',
+      },
+      {
+        category: '3 · Dose',
+        title: 'Weigh out beans in ceramic tray.',
+        subtext: '{{coffeeIn}} grams.',
+        icon: 'weighBeans',
+      },
+      {
+        category: '4 · RDT Spritz',
+        title: 'Spritz beans with water, and give it a little shake.',
+        subtext: 'This little bit of water will keep the grinder from building up too much static.',
+        icon: 'spritzBeans',
+      },
+      {
+        category: '5 · Grind Check',
+        title: 'Check that grinder is set where you want it.',
+        subtext: 'Current grinder suggestion: {{grindSize}}.',
+        icon: 'grinderDial',
+      },
+      {
+        category: '6 · Setup',
+        title: 'Add funnel to portafilter, and set in place under grinder.',
+        subtext: '',
+        icon: 'funnelCradle',
+      },
+      {
+        category: '7 · Hot Start',
+        title: 'Push in portafilter to start grinder, then drop in beans and replace bellows cap.',
+        subtext: 'Starting the burrs before dropping beans helps prevent jamming and feeds evenly.',
+        icon: 'pushGrindDrop',
+      },
+      {
+        category: '8 · Purge Bellows',
+        title: 'While grinding, press down on bellows repeatedly to push air through system.',
+        subtext: 'Grinder should continue 2–3 seconds after it sounds like the last bean went through.',
+        icon: 'bellowsPump',
+      },
+      {
+        category: '9 · Clump Break',
+        title: 'Remove portafilter with funnel, cover with your hand, and give it a little shake.',
+        subtext: 'This will break up any big clumps.',
+        icon: 'shakeGrounds',
+      },
+      {
+        category: '10 · WDT Distribution',
+        title: 'With WDT tool, stir grounds with a spirograph pattern from bottom to top.',
+        subtext: 'This will break up the tiny clumps.',
+        icon: 'wdtSpirograph',
+      },
+      {
+        category: '11 · Settle Bed',
+        title: 'Hold the portafilter level and knock it on the countertop.',
+        subtext: 'This is to keep you from making a mess when you remove the funnel.',
+        icon: 'verticalTap',
+      },
+      {
+        category: '12 · Leveling',
+        title: 'Remove funnel, and smooth grounds with leveling tool.',
+        subtext: 'This is to make sure the tamper doesn’t press any part more compact than anywhere else.',
+        icon: 'leveler',
+      },
+      {
+        category: '13 · Tamping',
+        title: 'Place the portafilter down flat on the counter, press the tamper straight down on top of the grounds.',
+        subtext: 'Hold the tamper like a door handle, press straight down, give it a little twist, and pull up.',
+        icon: 'tamper',
+      },
+      {
+        category: '14 · Puck Screen',
+        title: 'Set a metal screen on top of the bed of grounds.',
+        subtext: 'Keeps the shower screen clean and helps water disperse evenly across the puck.',
+        icon: 'puckScreen',
+      },
+      {
+        category: '15 · Lock In',
+        title: 'Lock portafilter under the grouphead, set cup and scale underneath.',
+        subtext: 'Make sure the scale is tared to 0.0g and isn’t touching the drip tray back wall.',
+        icon: 'lockGrouphead',
+      },
+      {
+        category: '16 · Preinfusion',
+        title: 'Press and hold two-cup button for ten seconds then let go.',
+        subtext: 'This is a preinfusion of water. If the grounds weren’t even before, they are now!',
+        icon: 'preinfusionHold',
+      },
+      {
+        category: '17 · Stop Shot',
+        title: 'Watch scale, and press the button again to stop the pull when it gets to {{stopWeight}} grams.',
+        subtext: 'Coffee will keep flowing for a few seconds, and we want the cup to end up with {{coffeeOut}} grams.',
+        icon: 'stopScaleWeight',
+      },
+      {
+        category: '18 · Note Time',
+        title: 'Make a note of where the timer stopped.',
+        subtext: 'We’ll need this later for dialing in. We’re hoping for somewhere between {{timeMin}} and {{timeMax}} seconds.',
+        icon: 'shotTimer',
+      },
+      {
+        category: '19 · Enjoy!',
+        title: 'Give your espresso a little stir before enjoying!',
+        subtext: 'Stirring blends the rich, syrupy bottom layers with the aromatic crema on top.',
+        icon: 'stirEnjoy',
+      },
+    ];
+
+    function loadStepsFromStorage() {
+      try {
+        const saved = localStorage.getItem('holiday_espresso_steps_v1');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
         }
-      ];
+      } catch (e) {
+        console.warn('Could not load saved steps:', e);
+      }
+      return JSON.parse(JSON.stringify(DEFAULT_STEPS));
     }
 
-    // DOM Elements
-    const stepView = document.getElementById('step-view');
-    const diagnosisView = document.getElementById('diagnosis-view');
-    const stepIllustration = document.getElementById('step-illustration');
-    const stepPill = document.getElementById('step-pill');
-    const stepCategory = document.getElementById('step-category');
-    const stepMainText = document.getElementById('step-main-text');
-    const stepSubText = document.getElementById('step-sub-text');
-    const finalStepActions = document.getElementById('final-step-actions');
+    let steps = loadStepsFromStorage();
 
+    function saveStepsToStorage(newSteps) {
+      steps = newSteps;
+      try {
+        localStorage.setItem('holiday_espresso_steps_v1', JSON.stringify(steps));
+      } catch (e) {
+        console.warn('Could not save steps:', e);
+      }
+      if (currentStepIndex >= steps.length) {
+        currentStepIndex = Math.max(0, steps.length - 1);
+      }
+      renderCurrentView();
+    }
+
+    // Automatically fetch ./steps.json when hosted on GitHub Pages so family phones stay in sync
+    async function syncStepsFromGitHubJson() {
+      try {
+        if (window.location.protocol === 'file:' || window.location.protocol === 'about:' || window.location.protocol === 'blob:') {
+          return;
+        }
+        const res = await fetch(`./steps.json?t=${Date.now()}`, { cache: 'no-store' });
+        if (!res.ok) return;
+        const remoteData = await res.json();
+        const remoteSteps = Array.isArray(remoteData) ? remoteData : remoteData.steps;
+        if (Array.isArray(remoteSteps) && remoteSteps.length > 0) {
+          steps = remoteSteps;
+          localStorage.setItem('holiday_espresso_steps_v1', JSON.stringify(steps));
+          if (Array.isArray(remoteData.profiles) && remoteData.profiles.length > 0) {
+            savedProfiles = remoteData.profiles;
+            persistSavedProfiles();
+          }
+          if (remoteData.recipe) {
+            saveRecipe(remoteData.recipe);
+          }
+          renderCurrentView();
+        }
+      } catch (_) {
+        // Silently ignore if steps.json isn't present in the repository yet
+      }
+    }
+
+    // Interpolates dynamic placeholders like {{coffeeIn}}, {{coffeeOut}}, {{stopWeight}}, {{grindSize}}
+    function formatStepText(rawText) {
+      if (!rawText) return '';
+      const stopWeight = Math.max(10, Math.round(recipe.coffeeOut - 4));
+      return rawText
+        .replace(/\{\{\s*coffeeIn\s*\}\}/gi, recipe.coffeeIn)
+        .replace(/\{\{\s*coffeeOut\s*\}\}/gi, recipe.coffeeOut)
+        .replace(/\{\{\s*stopWeight\s*\}\}/gi, stopWeight)
+        .replace(/\{\{\s*grindSize\s*\}\}/gi, recipe.grinderSetting)
+        .replace(/\{\{\s*timeMin\s*\}\}/gi, recipe.timeMin)
+        .replace(/\{\{\s*timeMax\s*\}\}/gi, recipe.timeMax);
+    }
+
+    // =========================================================================
+    // 5. DOM REFERENCES & VIEW RENDERING
+    // =========================================================================
+    const stepViewEl = document.getElementById('step-view');
+    const diagnosisViewEl = document.getElementById('diagnosis-view');
+    const stepIllustrationEl = document.getElementById('step-illustration');
+    const stepBadgeEl = document.getElementById('step-badge');
+    const stepCategoryEl = document.getElementById('step-category');
+    const stepTitleEl = document.getElementById('step-title');
+    const stepSubtextEl = document.getElementById('step-subtext');
+    const finalStepActionsEl = document.getElementById('final-step-actions');
     const backBtn = document.getElementById('back-btn');
     const footerStepLabel = document.getElementById('footer-step-label');
     const footerTapHint = document.getElementById('footer-tap-hint');
     const progressFill = document.getElementById('progress-fill');
+    const recipeSummaryText = document.getElementById('recipe-summary-text');
 
-    const badgeIn = document.getElementById('badge-in');
-    const badgeOut = document.getElementById('badge-out');
-    const badgeTime = document.getElementById('badge-time');
-    const badgeGrind = document.getElementById('badge-grind');
-
-    function updateRecipeBadges() {
-      badgeIn.textContent = `${recipe.coffeeIn}g`;
-      badgeOut.textContent = `${recipe.coffeeOut}g`;
-      badgeTime.textContent = `${recipe.timeMin}–${recipe.timeMax}s`;
-      badgeGrind.textContent = `${recipe.grinderSetting}`;
+    function updateRecipeHeader() {
+      const namePrefix = recipe.profileName ? `${recipe.profileName} · ` : '';
+      recipeSummaryText.textContent = `${namePrefix}${recipe.coffeeIn}g in → ${recipe.coffeeOut}g out · ${recipe.timeMin}–${recipe.timeMax}s · Grind ${recipe.grinderSetting}`;
+      document.getElementById('diag-target-summary').textContent = `${recipe.coffeeOut}g in ${recipe.timeMin}–${recipe.timeMax}s`;
     }
 
-    /**
-     * Renders the current step (0 to 18) and updates dynamic SVG labels
-     */
-    function renderStep(direction = 'next') {
-      const steps = getSteps();
-      const total = steps.length;
-      const step = steps[currentStepIndex];
+    function renderCurrentView() {
+      const totalSteps = steps.length;
+      const isDiagnosis = currentStepIndex >= totalSteps;
 
-      // Ensure walkthrough card is shown and diagnosis is hidden
-      diagnosisView.classList.add('hidden');
-      stepView.classList.remove('hidden');
-      document.getElementById('bottom-bar').classList.remove('opacity-30');
+      backBtn.disabled = currentStepIndex === 0;
 
-      // Trigger subtle directional animation
-      stepView.classList.remove('anim-next', 'anim-prev');
-      void stepView.offsetWidth; // reflow
-      stepView.classList.add(direction === 'prev' ? 'anim-prev' : 'anim-next');
+      if (isDiagnosis) {
+        stepViewEl.classList.add('hidden');
+        diagnosisViewEl.classList.remove('hidden');
+        diagnosisViewEl.classList.remove('step-animate');
+        void diagnosisViewEl.offsetWidth;
+        diagnosisViewEl.classList.add('step-animate');
 
-      // Update SVG illustration
-      stepIllustration.innerHTML = STEP_SVGS[currentStepIndex];
-
-      // Inject live recipe numbers inside specific SVGs
-      const svg3Weight = document.getElementById('svg-step3-weight');
-      if (svg3Weight) svg3Weight.textContent = `${Number(recipe.coffeeIn).toFixed(1)} g`;
-
-      const svg5Grind = document.getElementById('svg-step5-grind');
-      if (svg5Grind) svg5Grind.textContent = `${recipe.grinderSetting}`;
-
-      const svg17Stop = document.getElementById('svg-step17-stop');
-      if (svg17Stop) svg17Stop.textContent = `${Math.max(1, recipe.coffeeOut - 4).toFixed(1)}g`;
-
-      const svg18Time = document.getElementById('svg-step18-time');
-      if (svg18Time) svg18Time.textContent = `${Math.round((recipe.timeMin + recipe.timeMax) / 2)}s`;
-
-      const svg18Weight = document.getElementById('svg-step18-weight');
-      if (svg18Weight) svg18Weight.textContent = `${recipe.coffeeOut}g`;
-
-      // Update text content
-      stepPill.textContent = `Step ${currentStepIndex + 1} of ${total}`;
-      stepCategory.textContent = step.category;
-      stepMainText.textContent = step.main;
-
-      if (step.sub && step.sub.trim().length > 0) {
-        stepSubText.textContent = step.sub;
-        stepSubText.classList.remove('hidden');
-      } else {
-        stepSubText.classList.add('hidden');
+        footerStepLabel.textContent = 'Dial-In & Taste Feedback';
+        footerTapHint.classList.add('invisible');
+        progressFill.style.width = '100%';
+        updateDiagnosis();
+        return;
       }
 
-      // Show completion buttons on the final step (Step 19)
-      if (currentStepIndex === total - 1) {
-        finalStepActions.classList.remove('hidden');
-        footerTapHint.innerHTML = `<span class="text-sageDark font-semibold">Shot complete! Choose an option above</span>`;
+      diagnosisViewEl.classList.add('hidden');
+      stepViewEl.classList.remove('hidden');
+      footerTapHint.classList.remove('invisible');
+
+      const step = steps[currentStepIndex];
+      const stepNum = currentStepIndex + 1;
+
+      stepViewEl.classList.remove('step-animate');
+      void stepViewEl.offsetWidth;
+      stepViewEl.classList.add('step-animate');
+
+      stepBadgeEl.textContent = `Step ${stepNum} of ${totalSteps}`;
+      stepCategoryEl.textContent = step.category || `Step ${stepNum}`;
+      stepTitleEl.textContent = formatStepText(step.title);
+
+      const formattedSubtext = formatStepText(step.subtext);
+      if (formattedSubtext && formattedSubtext.trim().length > 0) {
+        stepSubtextEl.textContent = formattedSubtext;
+        stepSubtextEl.classList.remove('hidden');
       } else {
-        finalStepActions.classList.add('hidden');
+        stepSubtextEl.textContent = '';
+        stepSubtextEl.classList.add('hidden');
+      }
+
+      const drawFn = ILLUSTRATIONS[step.icon] || ILLUSTRATIONS.prep;
+      stepIllustrationEl.innerHTML = drawFn(recipe);
+
+      const isLastStep = currentStepIndex === totalSteps - 1;
+      if (isLastStep) {
+        finalStepActionsEl.classList.remove('hidden');
         footerTapHint.innerHTML = `
-          Tap anywhere to continue
+          <span>Tap to open Dial-In Feedback</span>
+          <svg class="w-3.5 h-3.5 text-copper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        `;
+      } else {
+        finalStepActionsEl.classList.add('hidden');
+        footerTapHint.innerHTML = `
+          <span>Tap anywhere to continue</span>
           <svg class="w-3.5 h-3.5 text-copper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="9 18 15 12 9 6"/>
           </svg>
         `;
       }
 
-      // Back arrow state
-      backBtn.disabled = currentStepIndex === 0;
-
-      // Progress bar & footer counter
-      footerStepLabel.textContent = `Step ${currentStepIndex + 1} of ${total}`;
-      const pct = ((currentStepIndex + 1) / total) * 100;
+      footerStepLabel.textContent = `Step ${stepNum} of ${totalSteps}`;
+      const pct = Math.round((stepNum / totalSteps) * 100);
       progressFill.style.width = `${pct}%`;
     }
 
     function goNext() {
-      if (!diagnosisView.classList.contains('hidden')) return;
-      if (currentStepIndex < 18) {
+      if (currentStepIndex < steps.length) {
         currentStepIndex++;
-        renderStep('next');
+        renderCurrentView();
       }
     }
 
-    function goPrev() {
-      if (!diagnosisView.classList.contains('hidden')) {
-        // Close diagnosis and go back to step 19
-        diagnosisView.classList.add('hidden');
-        stepView.classList.remove('hidden');
-        renderStep('prev');
-        return;
-      }
+    function goBack() {
       if (currentStepIndex > 0) {
         currentStepIndex--;
-        renderStep('prev');
+        renderCurrentView();
       }
     }
 
-    function goToStart() {
+    function restartGuide() {
       currentStepIndex = 0;
-      renderStep('prev');
+      renderCurrentView();
     }
 
-    // Tap-anywhere handler on main stage
+    // =========================================================================
+    // 6. INITIALIZE ROTARY DIALS FOR SETTINGS & FEEDBACK
+    // =========================================================================
+    const dialSetIn = new RotaryDial(document.getElementById('dial-set-in'), {
+      min: 14, max: 24, step: 0.5, decimals: 1, unit: 'g',
+      value: recipe.coffeeIn,
+      onChange: () => updateSettingsPreview(),
+    });
+
+    const dialSetOut = new RotaryDial(document.getElementById('dial-set-out'), {
+      min: 20, max: 70, step: 1, decimals: 0, unit: 'g',
+      value: recipe.coffeeOut,
+      onChange: () => updateSettingsPreview(),
+    });
+
+    const dialSetGrind = new RotaryDial(document.getElementById('dial-set-grind'), {
+      min: 1, max: 30, step: 1, decimals: 0, unit: '',
+      value: recipe.grinderSetting,
+    });
+
+    const dialSetTMin = new RotaryDial(document.getElementById('dial-set-tmin'), {
+      min: 15, max: 45, step: 1, decimals: 0, unit: 's',
+      value: recipe.timeMin,
+      onChange: (val) => {
+        if (typeof dialSetTMax !== 'undefined' && dialSetTMax.getValue() <= val) {
+          dialSetTMax.setValue(val + 5, true);
+        }
+      },
+    });
+
+    const dialSetTMax = new RotaryDial(document.getElementById('dial-set-tmax'), {
+      min: 20, max: 60, step: 1, decimals: 0, unit: 's',
+      value: recipe.timeMax,
+      onChange: (val) => {
+        if (typeof dialSetTMin !== 'undefined' && dialSetTMin.getValue() >= val) {
+          dialSetTMin.setValue(Math.max(15, val - 5), true);
+        }
+      },
+    });
+
+    const dialDiagWeight = new RotaryDial(document.getElementById('dial-diag-weight'), {
+      min: 15, max: 75, step: 1, decimals: 0, unit: 'g',
+      value: recipe.coffeeOut,
+      onChange: () => updateDiagnosis(),
+    });
+
+    const dialDiagTime = new RotaryDial(document.getElementById('dial-diag-time'), {
+      min: 10, max: 60, step: 1, decimals: 0, unit: 's',
+      value: Math.round((recipe.timeMin + recipe.timeMax) / 2),
+      onChange: () => updateDiagnosis(),
+    });
+
+    const dialRegistry = {
+      'set-in': dialSetIn,
+      'set-out': dialSetOut,
+      'set-grind': dialSetGrind,
+      'set-tmin': dialSetTMin,
+      'set-tmax': dialSetTMax,
+      'diag-weight': dialDiagWeight,
+      'diag-time': dialDiagTime,
+    };
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-dial-step]');
+      if (!btn) return;
+      e.stopPropagation();
+      const [key, deltaStr] = btn.dataset.dialStep.split(':');
+      const dial = dialRegistry[key];
+      if (dial) dial.stepBy(parseInt(deltaStr, 10));
+    });
+
+    // =========================================================================
+    // 7. EVENT LISTENERS (Tap Anywhere, Back Arrow, Keyboard, Settings, Editor)
+    // =========================================================================
     document.getElementById('tap-stage').addEventListener('click', (e) => {
-      // Ignore clicks on buttons, inputs, labels, or inside diagnosis view
-      if (
-        e.target.closest('button') ||
-        e.target.closest('input') ||
-        e.target.closest('label') ||
-        !diagnosisView.classList.contains('hidden')
-      ) {
-        return;
-      }
+      if (currentStepIndex >= steps.length) return;
+      if (e.target.closest('button')) return;
       goNext();
     });
 
-    // Keyboard navigation support (Left/Right arrows, Space)
-    document.addEventListener('keydown', (e) => {
-      const settingsOpen = !document.getElementById('settings-modal').classList.contains('hidden');
-      if (settingsOpen) {
-        if (e.key === 'Escape') closeSettingsModal();
-        return;
-      }
-      if (e.target.tagName === 'INPUT') return;
-
-      if (e.key === 'ArrowRight' || e.key === ' ') {
-        e.preventDefault();
-        goNext();
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        goPrev();
-      }
-    });
-
-    // Header & Step 19 buttons
     backBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      goPrev();
+      goBack();
     });
 
     document.getElementById('restart-btn').addEventListener('click', (e) => {
       e.stopPropagation();
-      goToStart();
+      restartGuide();
+    });
+
+    document.getElementById('diag-restart-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      restartGuide();
+    });
+
+    document.getElementById('open-diagnosis-btn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      dialDiagWeight.setValue(recipe.coffeeOut, false, false);
+      dialDiagTime.setValue(Math.round((recipe.timeMin + recipe.timeMax) / 2), false, false);
+      currentStepIndex = steps.length;
+      renderCurrentView();
     });
 
     document.getElementById('dismiss-portrait-btn').addEventListener('click', () => {
       document.getElementById('portrait-banner').style.display = 'none';
     });
 
-    /**
-     * Toast Notification Helper
-     */
-    let toastTimeout;
-    function showToast(msg) {
-      const banner = document.getElementById('toast-banner');
-      document.getElementById('toast-message').textContent = msg;
-      banner.classList.remove('opacity-0', 'translate-y-2');
-      banner.classList.add('opacity-100', 'translate-y-0');
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        banner.classList.remove('opacity-100', 'translate-y-0');
-        banner.classList.add('opacity-0', 'translate-y-2');
-      }, 2600);
-    }
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('settings-modal').classList.contains('hidden')) {
+        if (e.key === 'Escape') closeSettingsModal();
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        if (currentStepIndex < steps.length) {
+          e.preventDefault();
+          goNext();
+        }
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goBack();
+      }
+    });
 
-    /**
-     * Settings Modal Logic
-     */
+    // =========================================================================
+    // 8. SETTINGS MODAL & TABS
+    // =========================================================================
     const settingsModal = document.getElementById('settings-modal');
-    const setCoffeeIn = document.getElementById('set-coffee-in');
-    const setCoffeeOut = document.getElementById('set-coffee-out');
-    const setGrinder = document.getElementById('set-grinder');
-    const setTimeMin = document.getElementById('set-time-min');
-    const setTimeMax = document.getElementById('set-time-max');
-    const settingsRatioPreview = document.getElementById('settings-ratio-preview');
-    const settingsStopPreview = document.getElementById('settings-stop-preview');
+    const tabRecipeBtn = document.getElementById('tab-recipe-btn');
+    const tabStepsBtn = document.getElementById('tab-steps-btn');
+    const panelRecipe = document.getElementById('panel-recipe');
+    const panelSteps = document.getElementById('panel-steps');
 
-    function updateSettingsPreview() {
-      const cIn = parseFloat(setCoffeeIn.value) || DEFAULT_RECIPE.coffeeIn;
-      const cOut = parseFloat(setCoffeeOut.value) || DEFAULT_RECIPE.coffeeOut;
-      const ratio = (cOut / cIn).toFixed(1);
-      const stop = Math.max(1, Math.round(cOut - 4));
-      settingsRatioPreview.textContent = `1 : ${ratio}`;
-      settingsStopPreview.textContent = `${stop}g`;
+    function switchModalTab(tab) {
+      if (tab === 'recipe') {
+        panelRecipe.classList.remove('hidden');
+        panelSteps.classList.add('hidden');
+        tabRecipeBtn.className = 'px-3.5 py-1.5 rounded-lg bg-card text-espresso font-bold text-xs sm:text-sm shadow-xs transition';
+        tabStepsBtn.className = 'px-3.5 py-1.5 rounded-lg text-espressoLight hover:text-espresso font-semibold text-xs sm:text-sm transition';
+        renderSavedProfilesList();
+        dialSetIn.setValue(recipe.coffeeIn, false, false);
+        dialSetOut.setValue(recipe.coffeeOut, false, false);
+        dialSetGrind.setValue(recipe.grinderSetting, false, false);
+        dialSetTMin.setValue(recipe.timeMin, false, false);
+        dialSetTMax.setValue(recipe.timeMax, false, false);
+        updateSettingsPreview();
+      } else {
+        panelRecipe.classList.add('hidden');
+        panelSteps.classList.remove('hidden');
+        tabStepsBtn.className = 'px-3.5 py-1.5 rounded-lg bg-card text-espresso font-bold text-xs sm:text-sm shadow-xs transition';
+        tabRecipeBtn.className = 'px-3.5 py-1.5 rounded-lg text-espressoLight hover:text-espresso font-semibold text-xs sm:text-sm transition';
+        renderStepEditorList();
+      }
     }
 
-    function openSettingsModal() {
-      setCoffeeIn.value = recipe.coffeeIn;
-      setCoffeeOut.value = recipe.coffeeOut;
-      setGrinder.value = recipe.grinderSetting;
-      setTimeMin.value = recipe.timeMin;
-      setTimeMax.value = recipe.timeMax;
-      updateSettingsPreview();
-      settingsModal.classList.remove('hidden');
+    function renderSavedProfilesList() {
+      const container = document.getElementById('saved-profiles-list');
+      const badge = document.getElementById('active-profile-badge');
+      if (!container) return;
+
+      const matchingProfile = savedProfiles.find(
+        (p) =>
+          p.coffeeIn === recipe.coffeeIn &&
+          p.coffeeOut === recipe.coffeeOut &&
+          p.grinderSetting === recipe.grinderSetting &&
+          p.timeMin === recipe.timeMin &&
+          p.timeMax === recipe.timeMax
+      );
+
+      badge.textContent = matchingProfile
+        ? `Active: ${matchingProfile.name}`
+        : 'Custom Dial Settings';
+
+      container.innerHTML = '';
+      savedProfiles.forEach((prof) => {
+        const isSelected = matchingProfile && matchingProfile.id === prof.id;
+        const chip = document.createElement('div');
+        chip.className = isSelected
+          ? 'inline-flex items-center gap-1.5 pl-3 pr-1.5 py-1 rounded-xl bg-copper text-white text-xs font-bold shadow-xs'
+          : 'inline-flex items-center gap-1.5 pl-3 pr-1.5 py-1 rounded-xl bg-card border border-espresso/15 text-espresso text-xs font-semibold hover:bg-creamDark transition';
+
+        const selectBtn = document.createElement('button');
+        selectBtn.type = 'button';
+        selectBtn.className = 'text-left flex items-center gap-1.5';
+        selectBtn.innerHTML = `<span>${escapeHtmlAttr(prof.name)}</span><span class="opacity-75 text-[10px]">(${prof.coffeeIn}g→${prof.coffeeOut}g · G${prof.grinderSetting})</span>`;
+        selectBtn.addEventListener('click', () => {
+          saveRecipe({
+            profileName: prof.name,
+            coffeeIn: prof.coffeeIn,
+            coffeeOut: prof.coffeeOut,
+            timeMin: prof.timeMin,
+            timeMax: prof.timeMax,
+            grinderSetting: prof.grinderSetting,
+          });
+          dialSetIn.setValue(prof.coffeeIn, true, false);
+          dialSetOut.setValue(prof.coffeeOut, true, false);
+          dialSetGrind.setValue(prof.grinderSetting, true, false);
+          dialSetTMin.setValue(prof.timeMin, true, false);
+          dialSetTMax.setValue(prof.timeMax, true, false);
+          updateSettingsPreview();
+          renderSavedProfilesList();
+          renderCurrentView();
+          showToast(`Loaded "${prof.name}"`);
+        });
+
+        chip.appendChild(selectBtn);
+
+        if (prof.id !== 'default-house') {
+          const delBtn = document.createElement('button');
+          delBtn.type = 'button';
+          delBtn.title = 'Remove profile';
+          delBtn.className = isSelected
+            ? 'w-5 h-5 rounded-lg hover:bg-black/20 flex items-center justify-center text-[11px]'
+            : 'w-5 h-5 rounded-lg hover:bg-red-100 text-espressoLight hover:text-red-700 flex items-center justify-center text-[11px]';
+          delBtn.textContent = '✕';
+          delBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            savedProfiles = savedProfiles.filter((item) => item.id !== prof.id);
+            persistSavedProfiles();
+            renderSavedProfilesList();
+            showToast(`Removed "${prof.name}"`);
+          });
+          chip.appendChild(delBtn);
+        }
+
+        container.appendChild(chip);
+      });
     }
-
-    function closeSettingsModal() {
-      settingsModal.classList.add('hidden');
-    }
-
-    [setCoffeeIn, setCoffeeOut].forEach(inp => inp.addEventListener('input', updateSettingsPreview));
-
-    document.getElementById('settings-btn').addEventListener('click', (e) => {
-      e.stopPropagation();
-      openSettingsModal();
-    });
-
-    document.getElementById('close-settings-x').addEventListener('click', closeSettingsModal);
-    settingsModal.addEventListener('click', (e) => {
-      if (e.target === settingsModal) closeSettingsModal();
-    });
-
     document.getElementById('reset-defaults-btn').addEventListener('click', () => {
-      setCoffeeIn.value = DEFAULT_RECIPE.coffeeIn;
-      setCoffeeOut.value = DEFAULT_RECIPE.coffeeOut;
-      setGrinder.value = DEFAULT_RECIPE.grinderSetting;
-      setTimeMin.value = DEFAULT_RECIPE.timeMin;
-      setTimeMax.value = DEFAULT_RECIPE.timeMax;
+      dialSetIn.setValue(DEFAULT_RECIPE.coffeeIn, true, false);
+      dialSetOut.setValue(DEFAULT_RECIPE.coffeeOut, true, false);
+      dialSetGrind.setValue(DEFAULT_RECIPE.grinderSetting, true, false);
+      dialSetTMin.setValue(DEFAULT_RECIPE.timeMin, true, false);
+      dialSetTMax.setValue(DEFAULT_RECIPE.timeMax, true, false);
       updateSettingsPreview();
-      showToast('Reset to family defaults');
     });
 
     document.getElementById('save-settings-btn').addEventListener('click', () => {
-      const cIn = Math.max(10, Math.min(25, parseFloat(setCoffeeIn.value) || DEFAULT_RECIPE.coffeeIn));
-      const cOut = Math.max(15, Math.min(100, parseFloat(setCoffeeOut.value) || DEFAULT_RECIPE.coffeeOut));
-      const grind = Math.max(1, Math.min(50, parseInt(setGrinder.value, 10) || DEFAULT_RECIPE.grinderSetting));
-      let tMin = Math.max(10, Math.min(60, parseInt(setTimeMin.value, 10) || DEFAULT_RECIPE.timeMin));
-      let tMax = Math.max(tMin + 1, Math.min(80, parseInt(setTimeMax.value, 10) || DEFAULT_RECIPE.timeMax));
+      let tMin = dialSetTMin.getValue();
+      let tMax = dialSetTMax.getValue();
+      if (tMax <= tMin) tMax = tMin + 5;
+
+      const nextIn = dialSetIn.getValue();
+      const nextOut = dialSetOut.getValue();
+      const nextGrind = dialSetGrind.getValue();
+      const matched = savedProfiles.find(
+        (p) =>
+          p.coffeeIn === nextIn &&
+          p.coffeeOut === nextOut &&
+          p.grinderSetting === nextGrind &&
+          p.timeMin === tMin &&
+          p.timeMax === tMax
+      );
 
       saveRecipe({
-        coffeeIn: cIn,
-        coffeeOut: cOut,
-        grinderSetting: grind,
+        profileName: matched ? matched.name : 'Custom',
+        coffeeIn: nextIn,
+        coffeeOut: nextOut,
+        grinderSetting: nextGrind,
         timeMin: tMin,
-        timeMax: tMax
+        timeMax: tMax,
       });
 
       closeSettingsModal();
-      if (!diagnosisView.classList.contains('hidden')) {
-        openDiagnosisMode();
-      } else {
-        renderStep('next');
-      }
-      showToast('Recipe saved & updated!');
+      renderCurrentView();
+      showToast('Recipe dials saved!');
     });
 
-    /**
-     * Diagnosis / Dial-In Mode Logic
-     */
-    const diagWeightInput = document.getElementById('diag-weight');
-    const diagTimeInput = document.getElementById('diag-time');
-    const diagnosisResults = document.getElementById('diagnosis-results');
+    document.getElementById('step-editor-list').addEventListener('change', (e) => {
+      const target = e.target;
+      const idx = parseInt(target.dataset.idx, 10);
+      const field = target.dataset.field;
+      if (!isNaN(idx) && field && draftSteps[idx]) {
+        draftSteps[idx][field] = target.value;
+      }
+    });
+
+    document.getElementById('step-editor-list').addEventListener('click', (e) => {
+      const moveBtn = e.target.closest('[data-move]');
+      if (moveBtn) {
+        const [idxStr, dirStr] = moveBtn.dataset.move.split(':');
+        const idx = parseInt(idxStr, 10);
+        const targetIdx = idx + parseInt(dirStr, 10);
+        if (targetIdx >= 0 && targetIdx < draftSteps.length) {
+          const [moved] = draftSteps.splice(idx, 1);
+          draftSteps.splice(targetIdx, 0, moved);
+          rebuildEditorDOM();
+        }
+        return;
+      }
+
+      const delBtn = e.target.closest('[data-del]');
+      if (delBtn && draftSteps.length > 1) {
+        const idx = parseInt(delBtn.dataset.del, 10);
+        draftSteps.splice(idx, 1);
+        rebuildEditorDOM();
+      }
+    });
+
+    document.getElementById('add-step-btn').addEventListener('click', () => {
+      draftSteps.push({
+        category: `${draftSteps.length + 1} · Custom`,
+        title: 'New instruction step...',
+        subtext: '',
+        icon: 'prep',
+      });
+      rebuildEditorDOM();
+      const listEl = document.getElementById('step-editor-list');
+      listEl.scrollTop = listEl.scrollHeight;
+    });
+
+    document.getElementById('reset-steps-btn').addEventListener('click', () => {
+      draftSteps = JSON.parse(JSON.stringify(DEFAULT_STEPS));
+      rebuildEditorDOM();
+      showToast('Restored default 19 steps (click Save to apply)');
+    });
+
+    document.getElementById('save-steps-local-btn').addEventListener('click', () => {
+      saveStepsToStorage(draftSteps);
+      closeSettingsModal();
+      showToast('Updated steps saved to this device!');
+    });
+
+    function buildExportPayload() {
+      return JSON.stringify(
+        {
+          updatedAt: new Date().toISOString(),
+          recipe,
+          profiles: savedProfiles,
+          steps: draftSteps,
+        },
+        null,
+        2
+      );
+    }
+
+    document.getElementById('download-steps-json-btn').addEventListener('click', () => {
+      saveStepsToStorage(draftSteps);
+      const blob = new Blob([buildExportPayload()], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'steps.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Downloaded steps.json — upload to GitHub repo!');
+    });
+
+    document.getElementById('copy-steps-json-btn').addEventListener('click', () => {
+      saveStepsToStorage(draftSteps);
+      const ta = document.createElement('textarea');
+      ta.value = buildExportPayload();
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('Copied steps.json to clipboard!');
+    });
+
+    // =========================================================================
+    // 10. BARISTA DIAGNOSIS ENGINE (User Rules + Hoffmann / Hedrick Dial-In)
+    // =========================================================================
+    const tasteButtons = document.querySelectorAll('.taste-btn');
+    const diagnosisResultsEl = document.getElementById('diagnosis-results');
     const applyRecBtn = document.getElementById('apply-recommendation-btn');
     const applyRecLabel = document.getElementById('apply-rec-label');
+    const saveProfileBox = document.getElementById('save-profile-box');
+    const dialedProfileNameInput = document.getElementById('dialed-profile-name');
+    const saveDialedProfileBtn = document.getElementById('save-dialed-profile-btn');
 
-    function openDiagnosisMode() {
-      stepView.classList.add('hidden');
-      diagnosisView.classList.remove('hidden');
-      document.getElementById('bottom-bar').classList.add('opacity-30');
+    saveDialedProfileBtn.addEventListener('click', () => {
+      saveDialedInProfile(dialedProfileNameInput.value);
+      dialedProfileNameInput.value = '';
+    });
 
-      diagWeightInput.value = recipe.coffeeOut;
-      diagTimeInput.value = Math.round((recipe.timeMin + recipe.timeMax) / 2);
-      document.getElementById('diag-weight-target-hint').textContent = `Target: ${recipe.coffeeOut}g`;
-      document.getElementById('diag-time-target-hint').textContent = `Target: ${recipe.timeMin}–${recipe.timeMax}s`;
-
-      selectedTaste = 'balanced';
-      updateTastePills();
-      evaluateDiagnosis();
-    }
-
-    function updateTastePills() {
-      document.querySelectorAll('.taste-btn').forEach(btn => {
-        const isSelected = btn.dataset.taste === selectedTaste;
-        if (isSelected) {
-          btn.classList.remove('border', 'border-espresso/15', 'bg-cream', 'font-semibold');
-          btn.classList.add('border-2', 'border-copper', 'bg-copper/15', 'font-bold');
-        } else {
-          btn.classList.remove('border-2', 'border-copper', 'bg-copper/15', 'font-bold');
-          btn.classList.add('border', 'border-espresso/15', 'bg-cream', 'font-semibold');
-        }
+    tasteButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        selectedTaste = btn.dataset.taste;
+        tasteButtons.forEach((b) => {
+          if (b === btn) {
+            b.className = 'taste-btn py-2 px-2 rounded-xl border-2 border-copper bg-copper/15 text-xs sm:text-sm font-bold text-espresso transition-all flex flex-col items-center gap-0.5';
+          } else {
+            b.className = 'taste-btn py-2 px-2 rounded-xl border border-espresso/15 bg-cream hover:bg-creamDark text-xs sm:text-sm font-semibold text-espresso transition-all flex flex-col items-center gap-0.5';
+          }
+        });
+        updateDiagnosis();
       });
-    }
+    });
 
-    function evaluateDiagnosis() {
-      const actualWeight = parseFloat(diagWeightInput.value) || recipe.coffeeOut;
-      const actualTime = parseFloat(diagTimeInput.value) || Math.round((recipe.timeMin + recipe.timeMax) / 2);
+    function updateDiagnosis() {
+      const actualWeight = dialDiagWeight.getValue();
+      const actualTime = dialDiagTime.getValue();
 
       const cards = [];
-      let suggestedGrind = recipe.grinderSetting;
-      let suggestedOut = recipe.coffeeOut;
-      let hasChange = false;
+      let nextGrind = recipe.grinderSetting;
+      let nextOut = recipe.coffeeOut;
+      let hasRecipeChange = false;
 
-      // 1. Time Diagnostics (Flow Rate / Grind Size First — Hoffmann & Hedrick foundational rule)
+      // 1. Flow Time Diagnostics
       if (actualTime > recipe.timeMax) {
-        suggestedGrind = Math.min(50, recipe.grinderSetting + 2);
-        hasChange = true;
-        cards.push(`
-          <div class="p-3 rounded-xl bg-white border-l-4 border-copper shadow-2xs">
-            <p class="font-bold text-espresso">⏱️ Shot ran slow (${actualTime}s > ${recipe.timeMax}s)</p>
-            <p class="text-espressoLight mt-0.5">Target weight took longer than ${recipe.timeMax} seconds. <strong>Grind coarser</strong> (try setting <strong>${recipe.grinderSetting + 1}</strong> or <strong>${suggestedGrind}</strong>) to move water through faster.</p>
-          </div>
-        `);
+        nextGrind = Math.min(30, recipe.grinderSetting + 1);
+        hasRecipeChange = true;
+        cards.push({
+          tone: 'amber',
+          title: `Shot ran slow (${actualTime}s > ${recipe.timeMax}s target)`,
+          body: `Grind coarser (try setting <strong>${nextGrind}</strong>) so water moves through the puck faster.`,
+        });
       } else if (actualTime < recipe.timeMin) {
-        suggestedGrind = Math.max(1, recipe.grinderSetting - 2);
-        hasChange = true;
-        cards.push(`
-          <div class="p-3 rounded-xl bg-white border-l-4 border-copper shadow-2xs">
-            <p class="font-bold text-espresso">⚡ Shot ran fast (${actualTime}s < ${recipe.timeMin}s)</p>
-            <p class="text-espressoLight mt-0.5">Target weight arrived sooner than ${recipe.timeMin} seconds. <strong>Grind finer</strong> (try setting <strong>${Math.max(1, recipe.grinderSetting - 1)}</strong> or <strong>${suggestedGrind}</strong>) to slow down the water flow.</p>
-          </div>
-        `);
+        nextGrind = Math.max(1, recipe.grinderSetting - 1);
+        hasRecipeChange = true;
+        cards.push({
+          tone: 'amber',
+          title: `Shot ran fast (${actualTime}s < ${recipe.timeMin}s target)`,
+          body: `Grind finer (try setting <strong>${nextGrind}</strong>) to slow down the water flow and build resistance.`,
+        });
+      } else {
+        cards.push({
+          tone: 'sage',
+          title: `Spot-on flow time (${actualTime}s)`,
+          body: `Your grind size (${recipe.grinderSetting}) is right inside the ${recipe.timeMin}–${recipe.timeMax}s window.`,
+        });
       }
 
-      // 2. Taste Diagnostics (Yield / Ratio Adjustments per User Rules + James Hoffmann / Lance Hedrick)
+      // 2. Taste & Yield Diagnostics (User Rules + James Hoffmann / Lance Hedrick Ratio Method)
       if (selectedTaste === 'bitter') {
-        suggestedOut = Math.max(20, recipe.coffeeOut - 4);
+        nextOut = Math.max(24, recipe.coffeeOut - 4);
         if (actualTime >= recipe.timeMin && actualTime <= recipe.timeMax) {
-          suggestedGrind = Math.max(1, recipe.grinderSetting - 1);
+          nextGrind = Math.max(1, nextGrind - 1);
         }
-        hasChange = true;
-        cards.push(`
-          <div class="p-3 rounded-xl bg-white border-l-4 border-espresso shadow-2xs">
-            <p class="font-bold text-espresso">🍫 Overly Bitter & Astringent</p>
-            <p class="text-espressoLight mt-0.5"><strong>Decrease yield</strong> (try <strong>${suggestedOut}g out</strong>). Start with the same ${recipe.coffeeIn}g dose, and <strong>grind slightly finer</strong> (setting <strong>${suggestedGrind}</strong>) to pull less in the same ${recipe.timeMin}–${recipe.timeMax}s window. <em>(Hoffmann/Hedrick tip: shortening the ratio tames harshness.)</em></p>
-          </div>
-        `);
+        hasRecipeChange = true;
+        cards.push({
+          tone: 'copper',
+          title: 'Overly Bitter & Astringent (Over-Extracted)',
+          body: `Decrease yield to <strong>${nextOut}g out</strong> (keeping ${recipe.coffeeIn}g in) and grind slightly finer (<strong>${nextGrind}</strong>) to pull a shorter, sweeter ratio inside ${recipe.timeMax}s.`,
+        });
       } else if (selectedTaste === 'sour') {
-        suggestedOut = Math.min(80, recipe.coffeeOut + 5);
+        nextOut = Math.min(65, recipe.coffeeOut + 5);
         if (actualTime >= recipe.timeMin && actualTime <= recipe.timeMax) {
-          suggestedGrind = Math.min(50, recipe.grinderSetting + 1);
+          nextGrind = Math.min(30, nextGrind + 1);
         }
-        hasChange = true;
-        cards.push(`
-          <div class="p-3 rounded-xl bg-white border-l-4 border-gold shadow-2xs">
-            <p class="font-bold text-espresso">🍋 Overly Sour & Acidic</p>
-            <p class="text-espressoLight mt-0.5"><strong>Increase yield</strong> (try <strong>${suggestedOut}g out</strong>). Keep the same ${recipe.coffeeIn}g dose in, and <strong>grind slightly coarser</strong> (setting <strong>${suggestedGrind}</strong>) to pull more inside ${recipe.timeMax} seconds. <em>(Hoffmann/Hedrick tip: pushing a longer ratio extracts sweetness to balance acidity.)</em></p>
-          </div>
-        `);
-      } else if (!hasChange) {
-        cards.push(`
-          <div class="p-3 rounded-xl bg-white border-l-4 border-sage shadow-2xs">
-            <p class="font-bold text-sageDark">✨ Sweet Spot Achieved!</p>
-            <p class="text-espressoLight mt-0.5">Your shot hit ${actualWeight}g in ${actualTime}s and tasted balanced. Keep your current recipe (${recipe.coffeeIn}g in → ${recipe.coffeeOut}g out at grind <strong>${recipe.grinderSetting}</strong>) for the rest of the family!</p>
-          </div>
-        `);
+        hasRecipeChange = true;
+        cards.push({
+          tone: 'copper',
+          title: 'Overly Sour & Acidic (Under-Extracted)',
+          body: `Increase yield to <strong>${nextOut}g out</strong> (same ${recipe.coffeeIn}g in) and grind slightly coarser (<strong>${nextGrind}</strong>) to pull more sweetness inside ${recipe.timeMax}s.`,
+        });
+      } else {
+        if (Math.abs(actualWeight - recipe.coffeeOut) >= 3) {
+          const diff = actualWeight - recipe.coffeeOut;
+          const newStop = Math.max(10, Math.round(recipe.coffeeOut - 4 - diff));
+          cards.push({
+            tone: 'sage',
+            title: `Balanced flavor! (Yield landed at ${actualWeight}g vs ${recipe.coffeeOut}g target)`,
+            body: `Since it tasted great, keep this grind (${recipe.grinderSetting}) and tap stop slightly ${diff > 0 ? 'earlier' : 'later'} (~${newStop}g) next time.`,
+          });
+        } else {
+          cards.push({
+            tone: 'sage',
+            title: 'Dialed In! Balanced & Sweet',
+            body: `No changes needed—your ${recipe.coffeeIn}g in → ${actualWeight}g out in ${actualTime}s at grind ${recipe.grinderSetting} is nailed.`,
+          });
+        }
       }
 
-      // 3. Yield Stopping Accuracy Note
-      if (Math.abs(actualWeight - recipe.coffeeOut) >= 3) {
-        const stopAt = Math.max(1, recipe.coffeeOut - 4);
-        cards.push(`
-          <div class="p-2.5 rounded-xl bg-creamDark/70 border border-espresso/10 text-xs text-espressoLight">
-            <strong>Scale Tip:</strong> You ended at <strong>${actualWeight}g</strong> vs target <strong>${recipe.coffeeOut}g</strong>. Remember to press the 2-cup button at <strong>${stopAt}g</strong> to account for post-stop drip!
-          </div>
-        `);
-      }
+      diagnosisResultsEl.innerHTML = cards
+        .map((c) => {
+          const borderClass =
+            c.tone === 'sage'
+              ? 'border-sage/40 bg-sage/10'
+              : c.tone === 'copper'
+              ? 'border-copper/40 bg-copper/10'
+              : 'border-amber-600/30 bg-amber-500/10';
+          return `
+            <div class="p-2.5 sm:p-3 rounded-xl border ${borderClass}">
+              <div class="font-bold text-espresso text-xs sm:text-sm">${c.title}</div>
+              <div class="text-espressoLight text-xs mt-1 leading-relaxed">${c.body}</div>
+            </div>
+          `;
+        })
+        .join('');
 
-      diagnosisResults.innerHTML = cards.join('');
-
-      if (hasChange) {
-        pendingRecommendation = {
-          grinderSetting: suggestedGrind,
-          coffeeOut: suggestedOut
-        };
-        const changes = [];
-        if (suggestedGrind !== recipe.grinderSetting) changes.push(`Grind ${suggestedGrind}`);
-        if (suggestedOut !== recipe.coffeeOut) changes.push(`${suggestedOut}g Out`);
-        applyRecLabel.textContent = `Apply (${changes.join(', ')})`;
+      if (hasRecipeChange && (nextGrind !== recipe.grinderSetting || nextOut !== recipe.coffeeOut)) {
+        pendingRecommendation = { profileName: 'Custom', grinderSetting: nextGrind, coffeeOut: nextOut };
+        applyRecLabel.textContent = `Apply (${nextOut}g out · Grind ${nextGrind})`;
         applyRecBtn.classList.remove('hidden');
+        saveProfileBox.classList.add('hidden');
       } else {
         pendingRecommendation = null;
         applyRecBtn.classList.add('hidden');
+
+        // Show "Save Profile" option when shot is dialed in (balanced taste, on-target time & weight)
+        const isTimeOnTarget = actualTime >= recipe.timeMin && actualTime <= recipe.timeMax;
+        const isWeightOnTarget = Math.abs(actualWeight - recipe.coffeeOut) <= 2;
+        if (selectedTaste === 'balanced' && isTimeOnTarget && isWeightOnTarget) {
+          saveProfileBox.classList.remove('hidden');
+        } else {
+          saveProfileBox.classList.add('hidden');
+        }
       }
     }
 
-    document.getElementById('open-diagnosis-btn').addEventListener('click', (e) => {
-      e.stopPropagation();
-      openDiagnosisMode();
-    });
-
-    document.getElementById('close-diagnosis-btn').addEventListener('click', () => {
-      diagnosisView.classList.add('hidden');
-      stepView.classList.remove('hidden');
-      renderStep('prev');
-    });
-
-    document.querySelectorAll('.taste-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        selectedTaste = btn.dataset.taste;
-        updateTastePills();
-        evaluateDiagnosis();
-      });
-    });
-
-    [diagWeightInput, diagTimeInput].forEach(inp => inp.addEventListener('input', evaluateDiagnosis));
-
     applyRecBtn.addEventListener('click', () => {
       if (!pendingRecommendation) return;
-      saveRecipe({
-        ...recipe,
-        grinderSetting: pendingRecommendation.grinderSetting,
-        coffeeOut: pendingRecommendation.coffeeOut
-      });
-      showToast(`Updated recipe: Grind ${recipe.grinderSetting}, ${recipe.coffeeOut}g out!`);
-      evaluateDiagnosis();
+      saveRecipe(pendingRecommendation);
+      showToast(`Recipe updated: ${recipe.coffeeOut}g out · Grind ${recipe.grinderSetting}`);
+      updateDiagnosis();
     });
 
-    document.getElementById('diag-restart-btn').addEventListener('click', () => {
-      goToStart();
-    });
-
-    // Initialize Application
-    updateRecipeBadges();
-    renderStep('next');
+    // =========================================================================
+    // 11. BOOT APPLICATION
+    // =========================================================================
+    updateRecipeHeader();
+    renderCurrentView();
+    syncStepsFromGitHubJson();
   </script>
 </body>
 </html>
